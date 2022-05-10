@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns="http://www.w3.org/1999/xhtml" xmlns:addthis="http://www.addthis.com/help/api-spec">
+
+<head>
+    <script>
+        /*@shinsenter/defer.js*/
+        !function (e, i, t, n, r, o) { o = /p/.test(i.readyState); var c = 0 <= navigator.userAgent.indexOf('Firefox'); function f(e, t) { o ? n(e, t || 32) : r.push(e, t) } function a(e, t, n, r) { return t && i.getElementById(t) || (r = i.createElement(e || 'SCRIPT'), t && (r.id = t), n && (r.onload = n), i.head.appendChild(r)), r || {} } e.addEventListener('on' + t in e ? t : 'load', function () { for (o = 1; r[0];)f(r.shift(), r.shift()) }), f._ = a, e.defer = f, e.deferscript = function (e, t, n, r) { f(function () { a('', t, r).src = e }, n) }, e.deferPreload = function (e, t) { if (t = t || 'script', c) { var n = i.createElement('object'); n.data = e, n.width = 0, n.height = 0, i.body.append(n) } else { var r = i.createElement('link'); r.setAttribute('rel', 'preload'), r.href = e, r.as = t, i.head.append(r) } } }(this, document, 'pageshow', setTimeout, []), function (s, n) { var u = 'IntersectionObserver', d = 'lazied', l = 'data-', h = l + d, p = 'load', m = 'forEach', y = 'getAttribute', v = 'setAttribute', b = Function(), g = s.defer || b, f = g._ || b; function E(e, t) { return [].slice.call((t || n).querySelectorAll(e)) } function e(a) { return function (e, t, i, o, c, f) { g(function (n, t) { function r(n) { !1 !== (o || b).call(n, n) && ((f || ['srcset', 'src', 'style'])[m](function (e, t) { (t = n[y](l + e)) && n[v](e, t) }), E('SOURCE', n)[m](r), p in n && n[p]()), n.className += ' ' + (i || d) } t = u in s ? (n = new s[u](function (e) { e[m](function (e, t) { e.isIntersecting && (t = e.target) && (n.unobserve(t), r(t)) }) }, c)).observe.bind(n) : r, E(e || a + '[' + l + 'src]:not([' + h + '])')[m](function (e) { e[y](h) || (e[v](h, a), t(e)) }) }, t) } } function t() { g(function (t, n, r, i, o) { function c(e, t) { for (i in t = t || !1, e.parentNode.removeChild(e), e.removeAttribute('type'), n = f(e.nodeName), t && (n.async = 1), e) 'string' == typeof (o = e[i]) && n[i] != o && (n[i] = o); return n } t = E((r = '[type=deferjs]') + ':not(' + (i = '[async]') + ')'), E(r + i).forEach(function (e) { c(e, !0) }), t.forEach(function (e) { e.src && s.deferPreload(e.src) }), function e() { 0 != t && (r = t.shift(), n = c(r), r.src ? n.onload = n.onerror = e : g(e, .1)) }() }, 4) } t(), s.deferstyle = function (t, n, e, r) { g(function (e) { (e = f('LINK', n, r)).rel = 'stylesheet', e.href = t }, e) }, s.deferimg = e('IMG'), s.deferiframe = e('IFRAME'), g.all = t }(this, document);
+    </script>
+
+    <script>deferscript('https://cdn.jsdelivr.net/npm/@shinsenter/defer.js@1.1.7/dist/polyfill.min.js', 'polyfill-js', 1)</script>
+    <style>
+        img.lazy,
+        img.lazy-background {
+            filter: blur(15px);
+        }
+
+        img.lazy.lazied,
+        img.lazy-background.lazied {
+            filter: none;
+        }
+    </style>
+    <script>
+        function objValue(obj, is, value) { //Access 1 object bằng key
+            if (typeof is == 'string')
+                return objValue(obj, is.split('.'), value);
+            else if (is.length == 1 && value !== undefined)
+                return obj[is[0]] = value;
+            else if (is.length == 0)
+                return obj;
+            else if (typeof obj === "undefined")
+                return undefined
+            else
+                return objValue(obj[is[0]], is.slice(1), value);
+        }
+
+        function waitFor(objAcc, callback, timeout) {
+            if (typeof callback !== "function") {
+                return
+            }
+            timeout = timeout || 0
+            var startTime = new Date().getTime()
+            function check() {
+                if (typeof objValue(window, objAcc) !== "undefined") {
+                    callback()
+                } else {
+                    if (timeout > 0 && new Date().getTime() - startTime > timeout) { //Vượt quá timeout
+                        console.error("wait for " + objAcc + " has timeout!")
+                    } else {
+                        setTimeout(check, 500)
+                    }
+                }
+            }
+            check()
+        }
+
+        function applyImageLazyLoad(scope) {
+            scope = scope || document
+            var lazyImages = [].slice.call(scope.querySelectorAll("img.lazy"));
+
+            if ("IntersectionObserver" in window) {
+                let ops = {
+                    rootMargin: "450px",
+                    threshold: 0.1
+                }
+
+                let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            if (!!lazyImage.dataset.srcset) {
+                                lazyImage.srcset = lazyImage.dataset.srcset;
+                            }
+                            lazyImage.classList.remove("lazy");
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                }, ops);
+
+                lazyImages.forEach(function (lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+
+                //Lazy for background
+                var lazyBackgrounds = [].slice.call(scope.querySelectorAll(".lazy-background"));
+                let lazyBackgroundObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            entry.target.classList.remove("lazy-background");
+                            lazyBackgroundObserver.unobserve(entry.target);
+                        }
+                    });
+                }, ops);
+                lazyBackgrounds.forEach(function (lazyBackground) {
+                    lazyBackgroundObserver.observe(lazyBackground);
+                });
+            } else { //Không support observer
+                let lazyImages = [].slice.call(scope.querySelectorAll("img.lazy"));
+                let active = false;
+
+                const lazyLoad = function () {
+                    if (active === false) {
+                        active = true;
+
+                        setTimeout(function () {
+                            lazyImages.forEach(function (lazyImage) {
+                                if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== "none") {
+                                    lazyImage.src = lazyImage.dataset.src;
+                                    lazyImage.srcset = lazyImage.dataset.srcset;
+                                    lazyImage.classList.remove("lazy");
+
+                                    lazyImages = lazyImages.filter(function (image) {
+                                        return image !== lazyImage;
+                                    });
+
+                                    if (lazyImages.length === 0) {
+                                        document.removeEventListener("scroll", lazyLoad);
+                                        window.removeEventListener("resize", lazyLoad);
+                                        window.removeEventListener("orientationchange", lazyLoad);
+                                    }
+                                }
+                            });
+
+                            active = false;
+                        }, 200);
+                    }
+                };
+
+                document.addEventListener("scroll", lazyLoad);
+                window.addEventListener("resize", lazyLoad);
+                window.addEventListener("orientationchange", lazyLoad);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            applyImageLazyLoad(document)
+        });
+        deferimg("img.lazy")
+    </script>
+    <title>Dự án The Rivus Masterise Homes, Quận 9</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8" />
+    <meta name="description"
+        content="Dự án The Rivus Elie Saab do Masterise Homes triển khai toạ lạc tại khu đô thị Vinhomes Grand Park. The Rivus có quy mô 121 căn dinh thự với diện tích lớn." />
+    <meta name="keywords"
+        content="Rever, mua ban, cho thue, bat dong san, nha dat, van phong, dat nen, biet thu, villa" />
+    <meta name="author" content="rever.vn" />
+    <link rel="canonical" href="https://rever.vn/du-an/the-rivus" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://s3-cdn.rever.vn/p/v2.42.42/favicon.ico" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta property="fb:app_id" content="265437617126890" />
+    <meta property="og:url" content="https://rever.vn/du-an/the-rivus" />
+    <meta property="og:title" content="Dự án The Rivus Masterise Homes, Quận 9" />
+    <meta property="og:description"
+        content="Dự án The Rivus Elie Saab do Masterise Homes triển khai toạ lạc tại khu đô thị Vinhomes Grand Park. The Rivus có quy mô 121 căn dinh thự với diện tích lớn." />
+    <meta property="og:image"
+        content="https://photo.rever.vn/v3/get/rv952EXmH0v2qiUju5xawDy0SMcufrVGrND7pkrbBWDFUHRxq2_cIA8ADOzUieGKn3tX6aS9h3rjqtBLP8QSZc+A==/750x500/image.jpg" />
+    <meta property="og:image:url"
+        content="https://photo.rever.vn/v3/get/rv952EXmH0v2qiUju5xawDy0SMcufrVGrND7pkrbBWDFUHRxq2_cIA8ADOzUieGKn3tX6aS9h3rjqtBLP8QSZc+A==/750x500/image.jpg" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="320" />
+    <meta property="og:site_name" content="rever.vn" />
+    <meta property="og:rich_attachment" content="true" />
+    <meta property="og:type" content="article" />
+    <meta property="static-url" content="https://s3-cdn.rever.vn/p/v2.42.42" />
+    <meta property="hotline" content="1800 234 546" />
+    <link rel="stylesheet"
+        href="https://s3-cdn.rever.vn/p/v2.42.42/css/material-design-iconic-font.2.min.css?v=1650377153732">
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css/fontawsome-5.5.0.all.css">
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css2/pages/footer.min.css?v=1650377153732" />
+
+
+    <link rel="stylesheet"
+        href="https://s3-cdn.rever.vn/p/v2.42.42/css2/popup-new/popup-rever-new.min.css?v=1650377153732" />
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/js/jQuery-2.1.4.min.js?v=1650377153732"></script>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+
+        /* Ẩn các element khi vue chưa load */
+        picture img {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /*hide tracking img*/
+        img[src^="//analytics.rever.vn/fap"],
+        img[src^="/fap/debug/track"] {
+            display: none;
+        }
+
+        ._hj_feedback_container button {
+            /* Fix lỗi hotjar */
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        window["_au_api"] = "https://rever.vn/api";
+        window['fap_url'] = "https://s3-cdn.rever.vn/p/v2.42.42/js/fap.min.js?v=1650377153732";
+        window['fap.server'] = '//analytics.rever.vn/fap';
+        window['favorite_api'] = 'https://rever.vn/mapi';
+        window['googleClientId'] = '539423642927.apps.googleusercontent.com';
+        window['staticUrl'] = 'https://s3-cdn.rever.vn/p/v2.42.42';
+        window['hotline'] = '1800 234 546';
+
+        window['isLoggedIn'] = false;
+        window['isProduction'] = "true" === "true"
+    </script>
+
+
+    <script type="deferjs">
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var t=analytics.methods[e];analytics[t]=analytics.factory(t)}analytics.load=function(e,t){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.defer=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=t};analytics.SNIPPET_VERSION="4.1.0";
+      analytics.load("4LCsqFQzVAmMhPA650qKAAbZoHweHzHt", { integrations: { 'Mixpanel': false} });
+    }}();
+  </script>
+    <script type="deferjs">
+    //Track thêm tags
+      var tagTrackings = []
+      
+      var pageviewProperties = {
+  "project_info" : {
+    "id" : "1648088636783_6313",
+    "alias" : "the-rivus"
+  },
+  "address_info" : {
+    "street" : "Nguyễn Xiển",
+    "ward" : "Long Bình",
+    "ward_id" : "1577346021344_5307",
+    "district" : "Quận 9",
+    "district_id" : "1577269008573_2161",
+    "city" : "Hồ Chí Minh",
+    "city_id" : "1576833711767_2408",
+    "geolocation" : {
+      "lat" : 10.841644913373246,
+      "lon" : 106.84928287474365,
+      "valid" : true
+    },
+    "street_id" : "nguyen-xien",
+    "city_alias" : "ho-chi-minh",
+    "district_alias" : "quan-9",
+    "ward_alias" : "long-binh-quan-9",
+    "street_alias" : "nguyen-xien-quan-9-ho-chi-minh",
+    "full" : "Nguyễn Xiển, Long Bình, Quận 9, Hồ Chí Minh",
+    "short" : "Nguyễn Xiển, Quận 9"
+  }
+}
+
+      analytics.page(Object.assign({
+        domain: location.hostname,
+        tags: tagTrackings.length > 0 ? tagTrackings : undefined
+      }, pageviewProperties));
+
+      analytics.ready(function(){
+        //window.mixpanel.init("31bae2b919cfc12821646533a62aee1b")
+        //window.track("Page View")
+      })
+  </script>
+
+    <script type="deferjs">(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
+    0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+    for(h=0;h<l.length;h++)c(e,l[h]);var f="set set_once union unset remove delete".split(" ");e.get_group=function(){function a(c){b[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));e.push([d,call2])}}for(var b={},d=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<f.length;c++)a(f[c]);return b};a._i.push([b,d,g])};a.__SV=1.2;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.defer=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
+    MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js";d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d)}})(document,window.mixpanel||[]);
+    mixpanel.init("31bae2b919cfc12821646533a62aee1b");
+  </script>
+    <script type="deferjs">
+    mixpanel.track("Page View")
+  </script>
+
+
+    <script>
+        window.hsConversationsSettings = {
+            loadImmediately: false // Delay the load of the chat widget
+        };
+    </script>
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '323161212360067',
+                cookie: true,                     // Enable cookies to allow the server to access the session.
+                xfbml: true,                     // Parse social plugins on this webpage.
+                version: 'v8.0'           // Use this Graph API version for this call.
+            });
+        }
+    </script>
+    <script async defer type="deferjs" crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <meta property="segment:address_info"
+        content="{&quot;ward_alias&quot;:&quot;long-binh-quan-9&quot;,&quot;district_alias&quot;:&quot;quan-9&quot;,&quot;google_place_alias&quot;:null,&quot;city_alias&quot;:&quot;ho-chi-minh&quot;,&quot;project_alias&quot;:null,&quot;neighborhood_alias&quot;:null}">
+
+    <style>
+        .img-preload {
+            /*filter: blur(15px);*/
+            /*margin: -15px;*/
+        }
+
+        .img-preload.loaded {
+            /*filter: none;*/
+            /*transform: none;*/
+        }
+    </style>
+    <script>
+        window.ImagePreload = function () {
+            var eles = document.querySelectorAll('.img-preload')
+            eles.forEach(function (ele) {
+                if (ele.hasApplyPreload === true) {
+                    return
+                }
+                ele.hasApplyPreload = true
+
+                var src = ele.getAttribute("data-src")
+
+                if (src) {
+                    var link = document.createElement("link");
+                    link.rel = "preload";
+                    link.as = "image";
+                    var hasLoad = false
+                    link.onload = function () {
+                        hasLoad = true
+                        ele.src = src
+                    }
+                    link.href = src;
+                    document.head.appendChild(link);
+                    //fallback
+                    setTimeout(function () {
+                        if (!hasLoad) {
+                            ele.src = src
+                        }
+                    }, 5000)
+                }
+            })
+        }
+        //window.addEventListener('load', ImagePreload);
+        window.addEventListener('DOMContentLoaded', ImagePreload);
+    </script>
+
+    <script type="text/javascript">
+        deferstyle('https://s3-cdn.rever.vn/p/v2.42.42/css/modal-video.min.css', 'video-modal-css');
+    </script>
+</head>
+
+<body>
+    <form name="info" class="hidden">
+        <input name="id" type="hidden" value="1648088636783_6313">
+        <input name="lat" type="hidden" value="10.841644913373246">
+        <input name="lon" type="hidden" value="106.84928287474365">
+        <input name="title" type="hidden" value="The Rivus">
+        <input name="thumbnail" type="hidden"
+            value="https://photo.rever.vn/v3/get/rv952EXmH0v2qiUju5xawDy0SMcufrVGrND7pkrbBWDFUHRxq2_cIA8ADOzUieGKn3tX6aS9h3rjqtBLP8QSZc+A==/750x500/image.jpg">
+        <input name="extra-thumbnail" type="hidden"
+            value="https://photo.rever.vn/v3/get/rv952EXmH0v2qiUju5xawDy0SMcufrVGrND7pkrbBWDFUHRxq2_cIA8ADOzUieGKn3tX6aS9h3rjqtBLP8QSZc+A==/900x600/image.jpg">
+        <input name="ward" type="hidden" value="Long Bình">
+        <input name="district" type="hidden" value="Quận 9">
+        <input name="address-name" type="hidden" value="Long Bình, Quận 9, Hồ Chí Minh">
+        <input name="num-block" type="hidden" value="">
+        <input name="num-unit" type="hidden" value="">
+        <input name="num-floor" type="hidden" value="">
+        <input name="overview-floorplan" type="hidden" value="">
+    </form>
+    <input id="markerwithlabel" type="hidden"
+        value="https://s3-cdn.rever.vn/p/v2.42.42/js/markerwithlabel-0.0.1.min.js?v=1650377153732">
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VPGSP5" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "https://rever.vn",
+  "logo": "https://rever.vn/static/images/rever-thumbnail.jpg",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "1800 234 546",
+      "contactType": "customer service"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/rever.vn",
+    "https://www.linkedin.com/company/rever-real-estate",
+    "https://www.instagram.com/rever.vn/",
+    "https://www.youtube.com/channel/UCGqD_zho0DQyxXJ3G65NmSQ"
+  ]
+}
+</script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@id": "https://rever.vn/#website",
+        "@type": "WebSite",
+        "url": "https://rever.vn/",
+        "name": "Rever",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://rever.vn/s/{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+</script>
+    <style>
+        .banner-app-rever {
+            position: relative;
+            display: none;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 18px;
+            background-color: #30333a;
+            z-index: 100
+        }
+
+        @media (max-width:768px) {
+            .banner-app-rever {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex
+            }
+        }
+
+        .close-banner-app {
+            padding: 0 10px 0 0;
+            outline: 0;
+            background: 0 0;
+            border: 0;
+            font-size: 16px;
+            color: #fff;
+            font-weight: 400
+        }
+
+        .close-banner-app .zmdi {
+            font-size: 16px;
+            padding: 0
+        }
+
+        .btn-install {
+            position: relative;
+            display: inline-block;
+            min-width: -webkit-fit-content;
+            min-width: -moz-fit-content;
+            min-width: fit-content;
+            max-width: -webkit-fit-content;
+            max-width: -moz-fit-content;
+            max-width: fit-content;
+            width: 100%;
+            padding: 8px 10px 7px;
+            border-radius: 2px;
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: 500;
+            text-align: center;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .btn-install::after {
+            background-color: #c72528;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 2px;
+            z-index: -1;
+            -webkit-animation: zoomin 1.2s ease-in infinite;
+            animation: zoomin 1.2s ease-in infinite;
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out
+        }
+
+        .btn-install:focus,
+        .btn-install:hover {
+            color: #fff
+        }
+
+        .banner-app-content {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center
+        }
+
+        .banner-app-content .cover {
+            width: 44px;
+            min-width: 44px;
+            height: 44px;
+            margin-right: 10px;
+            border-radius: 10px;
+            overflow: hidden
+        }
+
+        .banner-app-content .cover img {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            -o-object-fit: contain;
+            object-fit: contain
+        }
+
+        .banner-app-content .banner-app-info a {
+            font-size: 14px;
+            line-height: 1;
+            font-weight: 500;
+            color: #fff
+        }
+
+        .banner-app-content .banner-app-info p {
+            margin: 0;
+            font-size: 12px;
+            line-height: 1.5;
+            font-weight: 400;
+            color: #fff
+        }
+
+        .banner-app-content .banner-app-info .rating-star {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center
+        }
+
+        .banner-app-content .banner-app-info .rating-star .zmdi {
+            font-size: 12px;
+            color: #838383;
+            cursor: pointer
+        }
+
+        @media (min-width:1200px) {
+            .banner-app-content .banner-app-info .rating-star .zmdi:hover {
+                color: #f7ce27
+            }
+        }
+
+        .banner-app-content .banner-app-info .rating-star .zmdi.evaluated {
+            color: #f7ce27
+        }
+
+        @keyframes zoomin {
+            0% {
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+
+            50% {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1)
+            }
+
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+        }
+
+        @-webkit-keyframes zoomin {
+            0% {
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+
+            50% {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1)
+            }
+
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+        }
+    </style>
+
+    <div class="banner-app-rever" id="rever-banner-prompt" style="display: none">
+        <div class="banner-app-content">
+            <button onclick="AppPrompt.closePrompt()" class="close-banner-app">
+                <i class="zmdi zmdi-close"></i>
+            </button>
+            <a href="javascript:void(0)" class="cover">
+                <img src="https://s3-cdn.rever.vn/p/v2.42.42/images/logo-rever.svg" alt="Rever">
+            </a>
+            <div class="banner-app-info">
+                <a href="javascript:void(0)">Rever</a>
+                <p>Mua bán nhà dễ dàng</p>
+                <div class="rating-star">
+                    <i class="zmdi zmdi-star evaluated"></i>
+                    <i class="zmdi zmdi-star evaluated"></i>
+                    <i class="zmdi zmdi-star evaluated"></i>
+                    <i class="zmdi zmdi-star evaluated"></i>
+                    <i class="zmdi zmdi-star-half evaluated"></i>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:void(0)" class="btn-install">Mở</a>
+    </div>
+    <script>
+        window.AppPrompt = (function () {
+            var APP_PROMP_KEY = "app_banner_prompt"
+            var wrapper = document.getElementById('rever-banner-prompt')
+            var btnAdd = wrapper.querySelector('.btn-install')
+            var deferredPrompt;
+            var promptInfo = {
+                lastHide: 0, //Thời gian cuối ẩn form
+                numHide: 0 //Số lần ẩn form
+            }
+            var androidUrl = "https://play.google.com/store/apps/details?id=com.rever.app.android"
+            var iosUrl = "https://itunes.apple.com/vn/app/rever/id1101768201"
+            var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+            var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+            var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+            var os = isIOS ? "ios" : "android"
+            if (!isMobile) {
+                return
+            }
+
+            // if(localStorage){ //lấy thông tin cũ
+            //   let info = localStorage.getItem(APP_PROMP_KEY)
+            //   if(info){
+            //     try{
+            //       promptInfo = {
+            //         ...promptInfo,
+            //         ...JSON.parse(info)
+            //       }
+            //     }catch(e){}
+            //   }
+            // }
+            // //Kiểm tra lần ẩn cuối cùng
+            // let hideDuration = promptInfo.numHide*2*24*60*60000 //Mỗi lần hide sẽ cộng thêm 2 ngày
+            // let currTime = +new Date()
+            // if(promptInfo.lastHide > 0 && currTime < promptInfo.lastHide + hideDuration){
+            //   return
+            // }
+
+            function showBanner() {
+                // var scrollPos = window.pageYOffset || document.documentElement.scrollTop
+                wrapper.style.display = 'flex';
+                window.ga && ga('send', 'event', 'Smart App Banner', 'Show', os);
+                // if(scrollPos == 0){
+                //   document.documentElement.scrollTop = 65
+                // }
+            }
+
+            function closeBanner() {
+                wrapper.style.display = 'none';
+                window.ga && ga('send', 'event', 'Smart App Banner', 'Close', os);
+            }
+
+            function savePrompInfo() {
+                // if(localStorage){
+                //   localStorage.setItem(APP_PROMP_KEY, JSON.stringify(promptInfo))
+                // }
+            }
+
+            //wrapper.style.display = 'flex';
+            document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(function () {
+                    if (!deferredPrompt && isMobile) {
+                        showBanner()
+                    }
+                }, 1000)
+            });
+
+            window.addEventListener('beforeinstallprompt', function (e) {
+                // Prevent Chrome 67 and earlier from automatically showing the prompt
+                e.preventDefault();
+                // Stash the event so it can be triggered later.
+                deferredPrompt = e;
+                // Update UI notify the user they can add to home screen
+                showBanner()
+            });
+
+            btnAdd.addEventListener('click', function (e) {
+                window.ga && ga('send', 'event', 'Smart App Banner', 'Click Install', os);
+
+                //Lưu lại promp info
+                promptInfo.lastHide = 0
+                promptInfo.numHide = 0
+                savePrompInfo()
+
+                // hide our user interface that shows our A2HS button
+                //closeBanner()
+                if (deferredPrompt) {
+                    // Show the prompt
+                    deferredPrompt.prompt();
+                    // Wait for the user to respond to the prompt
+                    deferredPrompt.userChoice
+                        .then(function (choiceResult) {
+                            if (choiceResult.outcome === 'accepted') {
+                                console.log('User accepted the A2HS prompt');
+                            } else {
+                                console.log('User dismissed the A2HS prompt');
+                            }
+                            deferredPrompt = null;
+                        });
+                } else {
+                    if (isIOS && iosUrl) {
+                        window.open(iosUrl, "_blank")
+                    } else if (!isIOS && androidUrl) {
+                        window.open(androidUrl, "_blank")
+                    }
+                }
+            });
+
+            return {
+                closePrompt: function (evt) {
+                    closeBanner()
+
+                    //Lưu lại prompt info
+                    promptInfo.lastHide = +new Date()
+                    promptInfo.numHide++
+                    savePrompInfo()
+                }
+            }
+        })()
+    </script>
+
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css/temp.css?v=1650377153732" />
+
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css2/layout/header-live.min.css?v=1650377153732" />
+    <script type="text/javascript">
+        var callbackInitMap = function () {
+            if (window.vinitMap) {
+                window.vinitMap();
+            }
+            if (window.initMap) {
+                initMap.call(this);
+            } else {
+                setTimeout(callbackInitMap, 500);
+            }
+        }
+    </script>
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/app_v2/suggest-v2.min.js?v=1650377153732"></script>
+    <script type="deferjs"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_J7TCgptlDrvjaFaHrayYb1C2F8ZaeBg&amp;libraries=drawing,places,geometry&amp;language=vi&callback=callbackInitMap"></script>
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css/flexslider.min.css" />
+    <header class="main-header">
+        <div class="col-left">
+            <div class="logo-large">
+                <a data-mix-header-click="group: logo, action: click_logo" href="/" title="Rever logo">
+                    <img src="./JSDemo/WebBDS/Image/NESTATE_LOGO.jpg" alt="Rever" style="width:100px;height: 60px;">
+                </a>
+            </div>
+            <div class="logo">
+                <a href="/" data-mix-header-click="group: logo, action: click_logo" title="Rever logo">
+                    <img src="./JSDemo/WebBDS/Image/NESTATE_LOGO.jpg" alt="Rever">
+
+                </a>
+                <div class="main-nav-menu">
+                    <div class="main-nav-menu__head">
+                        <a href="/" class="logo">
+                            <img src="./JSDemo/WebBDS/Image/NESTATE_LOGO.jpg" alt="Rever">
+                        </a>
+                        <button class="close__main-menu">
+                            <i class="zmdi zmdi-close"></i>
+                        </button>
+                    </div>
+
+                    <ul>
+                        <li>
+                            <a href="/">
+                                <span>Trang chủ</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="tel:1800234546" data-mix-header-click="group: hotline, action: click_hotline">
+                                <span>Hotline: <strong>1800 234 546</strong></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-nav-menu__overlay"></div>
+            </div>
+            <!-- nhập địa điểm -->
+            <!-- <div class="search-desktop-component" keyword="" init-search-page="false"
+                placeholder="Nhập địa điểm, khu dân cư, tòa nhà"></div> -->
+        </div>
+        <div class="col-right">
+            <div class="top-menu">
+                <ul>
+                    <li>
+                        <a href="tel:1800234546" data-mix-header-click="group: hotline, action: click_hotline">
+                            <i class="zmdi zmdi-phone"></i>
+                            <span>1800 234 546</span>
+                        </a>
+                        <a href="javascript:void(0)" class="menu-humber" style="opacity: 0.7">
+                            <i class="zmdi zmdi-menu"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="login">
+
+                <style>
+                    a[waiting-login-js] {
+                        opacity: 0.2;
+                    }
+                </style>
+
+
+            </div>
+        </div>
+
+        <script type="deferjs">
+    window.$dialog = function(){var e={bodyClassSpecs:"mdialog-body",bodyLoadingClass:"mdialog-loading",cachedBodyStyle:null,default:{zindex:99999,width:300,minHeight:100,background:"rgba(0,0,0,.5)",opacity:.5},key:{cachedStyle:"cached-style"}};return e.show=function(t,n,i,o){(n=$.extend(!0,{outSideClick:!0},n||{})).maxWidth="100%";var a,d=document.body.getAttribute("style");document.body.setAttribute(e.key.cachedStyle,d),(a=t&&"string"==typeof t?$(document.getElementById(t)):t).css("opacity",0),a.css("overflow-y","auto"),a.css("overflow-x","hidden"),a.addClass("opened");var s=(n?n.body:"")||".body";return a.find(s).css(n),a.find(s).addClass(e.bodyClassSpecs),a[0]&&(a[0].$dialogCallback=i),a[0]&&(a[0].$dialogInitTime=+new Date),n&&n.close&&a.find(s+" "+n.close).off().click(function(n){n.preventDefault(),e.hide(t,i)}),n&&n.outSideClick&&a.off().click(function(){e.hide(t,i)}),a.find(s).click(function(e){e.stopPropagation()}),e.animation(a,0,0,1,function(){o&&o()}),e.loadingEnd(a),a},e.animation=function(t,n,i,o,a){t.css("opacity",n),o>0&&n>1||o<0&&n<0?a&&a():setTimeout(function(){n+=o*(.05*i+1e-4*i*i),e.animation(t,n,i+1,o,a)},10)},e.hide=function(t,n){var i;i=t?"string"==typeof t?$(document.getElementById(t)):t:$(".mdialog.opened"),e.animation(i,1,0,-1,function(){i.removeClass("opened"),n&&n(i)})},e.loadingStart=function(t){(t?"string"==typeof t?$(document.getElementById(t)):t:$(".mdialog.opened")).find("."+e.bodyClassSpecs).addClass(e.bodyLoadingClass)},e.loadingEnd=function(t){(t?"string"==typeof t?$(document.getElementById(t)):t:$(".mdialog.opened")).find("."+e.bodyClassSpecs+"."+e.bodyLoadingClass).removeClass(e.bodyLoadingClass)},$(window).keydown(function(t){var n=$(".mdialog.opened");if(n.length&&27==t.keyCode){var i=[];i.length=n.length;for(var o=0;o<n.length;o++)for(var a=o;a<n.length;a++)n[o].$dialogInitTime>n[a].$dialogInitTime?(i[a]=n[o],i[o]=n[a]):(i[o]=n[o],i[a]=n[a]);var d=i[i.length-1];d&&e.hide($(d),d?d.$dialogCallback:null)}}),e.initStyles=function(){var e=document.createElement("STYLE"),t=document.head||document.getElementsByTagName("head")[0];e.type="text/css",e.styleSheet?e.styleSheet.cssText="":e.appendChild(document.createTextNode(this.getCss())),t.appendChild(e)},e.getCss=function(){var t=e.default,n="",i={display:"none",position:"fixed",top:"0",height:"100%",left:"0",width:"100%"};i["z-index"]=t.zindex,i.background=t.background,n+=e.assignStyle(".mdialog",i),n+=".mdialog.opened{display: block;}";var o={};o.width=t.width+"px",o["min-height"]=t.minHeight+"px",o.background="#fff",o.margin="60px auto 140px auto",n+=e.assignStyle(".mdialog .body",o);var a={position:"relative"};n+=e.assignStyle("."+e.bodyLoadingClass,a);var d={content:"' '",top:0,left:0,width:"100%",height:"100%",position:"absolute",background:"#fff",opacity:.4,"z-index":1};n+=e.assignStyle("."+e.bodyLoadingClass+":before",d);var s={content:"' '",border:"2px solid #303339","border-top":"2px solid #fff;","border-radius":"50%",width:"30px",height:"30px",position:"absolute",top:"calc(50% - 15px)",left:"calc(50% - 15px)","-webkit-animation":"spin 2s linear infinite",animation:"spin 2s linear infinite","z-index":1};return n+=e.assignStyle("."+e.bodyLoadingClass+":after",s),n+="@-webkit-keyframes spin { 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }"},e.assignStyle=function(e,t){var n=e+"{";for(var i in t){n+=i+":"+t[i]+";"}return n+="}"},e.initStyles(),e}();
+  </script>
+
+        <div class="search-mobile-component" keyword="" init-search-page="false"
+            placeholder="Nhập địa điểm, khu dân cư, tòa nhà"></div>
+    </header>
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/app_v2/header-v2.min.js?v=1650377153732"></script>
+    <link rel="stylesheet" href="https://s3-cdn.rever.vn/p/v2.42.42/css2/pages/project-pages.min.css?v=1650377153732">
+    <div id="project-detail-v3-app" class="page-project-detail">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <ul class="breadcrumb no__scrollbar">
+
+                    </ul>
+                    <ul class="menu-sticky no__scrollbar">
+                        <li class="logo">
+                            <a onclick="window.location = '/'" href="/"><img
+                                    src="./JSDemo/WebBDS/Image/NESTATE_LOGO.jpg" alt="Rever"></a>
+                        </li>
+                        <li class="actives"><a data-smooth-scroll href="#overview">Tổng quan</a></li>
+                        <li><a data-smooth-scroll href="#position">Vị trí</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="container" style="max-width: 65%;">
+            <div>
+                <h1 style="font-size: 50px; margin-bottom: 3rem; text-align: center;">Tên bài viết</h1>
+            </div>
+            <div class="row">
+                <div class="project-content" style="max-width: 100%;">
+                    <div class="project-gallery">
+                        <div class="project-gallery__cover">
+                            <button onclick="fullscreenProjectGallery && fullscreenProjectGallery()"
+                                class="zmdi zmdi-fullscreen gallery__fullscreen"></button>
+                            <div id="project-gallery__slider" class="project-gallery__slider flexslider">
+                                <ul class="slides">
+                                    <li title="Dự án The Rivus"><img
+                                            onclick="fullscreenProjectGallery && fullscreenProjectGallery()"
+                                            src="https://photo.rever.vn/v3/get/rvXKgnXrA2CtJ11IuDZ48aLZaK1u3Xjay3SPlw2ApcT+KIsXVPrDRvCnzoOC9D1ioeorYPCxTghY9TFYf92fplZg==/900x600/image.jpg"
+                                            alt="Rever" /></li>
+
+                                </ul>
+                            </div>
+                            <div id="project-gallery--counter" class="project-gallery--counter">
+                                <span class="slider-item-current"></span>/<span class="slider-item-total"></span><span
+                                    class="slider__thumb-title">Dự án The Nestate</span>
+                            </div>
+                        </div>
+                        <div id="project-slider__carousel" class="project-slider__carousel flexslider">
+                            <ul class="slides">
+                                <li><img src="https://photo.rever.vn/v3/get/rvXKgnXrA2CtJ11IuDZ48aLZaK1u3Xjay3SPlw2ApcT+KIsXVPrDRvCnzoOC9D1ioeorYPCxTghY9TFYf92fplZg==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rvF6d+Zw+JJuoIwZHY4TbOZRSJG1oJ90aet97YAlxl5eZ_XDdbj5Za7vBpFT0uyVbsWyoAzSpL1DiHTbMueyF0Gg==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rv4eBpzSIN8cxLURPZWTml1l6K30QLxL3s80ffmUwvneX1O1F+21jxNEA52HTCmyW9IYQGFyjJ+omz9_UWx9mt1w==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rvWJfnXDVdJBRnJkLQNhiHual7Mg+xk4VC8XepsYN7v595PzORYddmfaEBuUq1o98HuKjJBkyxienlcIfEAGuMMQ==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rvf0KfGddixv3sfy0W_KsjmCHWqXUoAKqJEPUpPp7JZgmH+9lTKws4ShC4_iAqwf+CVU3SCpWKM+miQm089krXBg==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rvjRYyHlm38IzXQL56NtCRISp+uejrWptDiimxieJmC15DFEoyYcK1IUvhhZ+awhv8KxJzixrmJC9QLCK8sg9Oww==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rvn97K3R2Uvch6YY5PXiad9jrJdznKROkM2OIf4H5gsadeLPg7t52ajCImEUr0zBuFoMOtc0Kkg85l4LWjSUPLUw==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rvB9lXxCARfSNFxg8uEducuEHtd5q2LBcLZi1vv3ROvQPq4wzZfBZyr14TbNyVw0MMxsdCXq7V3vsgNvTA6eGH1g==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                                <li><img src="https://photo.rever.vn/v3/get/rvuWFdfAOD3cp4QAysnAqMOldlfYbZx6ZPEG1T6QqdcIDE4nZTDArYyUgPo76sZJOI3angrhPDT9MrohydPNc+0Q==/900x600/image.jpg"
+                                        alt="Rever" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-general visible-sm">
+                        <div class="project__title">The Rivus</div>
+                        <div class="project__address">
+                            <h4><a href="https://rever.vn/s/long-binh-quan-9/mua">Long Bình</a></h4>
+                            <h4><a href="https://rever.vn/s/quan-9/mua">Quận 9</a></h4>
+                        </div>
+                        <ul class="project__price">
+                            <li>
+                                <p>Giá</p>
+                                <b>Đang cập nhật</b>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="overview" class="project-intro">
+                        <h2 class="heading-02">Giới thiệu</h2>
+                        <div class="project-intro__desc"
+                            style="height: 200px; overflow: hidden; white-space: pre-line; max-width:100%">
+                            <desc-view-more>
+                                <p>Chủ đầu tư Masterise Homes trong năm 2022 sẽ ra mắt phân khu dinh thự, biệt thự tại
+                                    khu đô thị Vinhomes Grand Park (Phường Long Bình, TP Thủ Đức) với tên gọi chính thức
+                                    là The Rivus by Elie Saab - Giới hạn chỉ 121 căn dinh thự diện tích lớn.&nbsp;</p>
+                                <p></p>
+                                <p><strong>Thông tin tổng quan dự án The Rivus:</strong></p>
+                                <p></p>
+                                <p>- Chủ đầu tư dự án The Rivus: Masterise Homes</p>
+                                <p>- Vị trí dự án The Rivus: KĐT Vinhomes Grand Park, phường Long Bình, TP Thủ Đức</p>
+                                <p>- Quy mô dự án The Rivus: 26,73 ha</p>
+                                <p>- Tổng số dinh thự dự án The Rivus: 121 căn</p>
+                                <p>- Mật độ xây dựng dự án The Rivus: ~ 40% đối với dinh thự, ~15% cho toàn bộ khuôn
+                                    viên</p>
+                                <p>- Hình thức: Sở Hữu Lâu dài đối với người Việt Nam.</p>
+                                <p>- Bàn giao dự kiến dự án The Rivus: Quý 1/2024</p>
+                                <p></p>
+                                <p><strong>Các loại dinh thự tại dự án The Rivus:</strong></p>
+                                <p></p>
+                                <p>1/ The Sava Collection - 4 Phòng Ngủ - 2 Phòng Khách - Diện tích đất: 560 - 851.8m2
+                                </p>
+                                <p>2/ The Seine Collection - 5 Phòng Ngủ - Diện tích đất: 745m2 đến 1.160m2</p>
+                                <p>3/ The Danube Collection - 6 Phòng Ngủ - Diện tích 1.010m2 đến 1287,6m2</p>
+                                <p></p>
+                                <p><strong>Thông tin chủ đầu tư Masterise Homes:</strong></p>
+                                <p></p>
+                                <p>Masterise Homes là công ty thành viên thuộc tập đoàn Masterise (tiền thân là công ty
+                                    Cổ phần Đầu tư Thảo Điền - Thao Dien Investment). Danh mục triển khai dự án của
+                                    Masterise Homes phần lớn là thuộc phân khúc cao tầng. Ngay bây giờ, hãy cùng Rever
+                                    tìm hiểu chi tiết các dự án bất động sản của Masterise Homes đang góp mặt trên thị
+                                    trường.</p>
+                                <p></p>
+                                <p>Các dự án đã bàn giao của Masterise Homes tại TP.HCM: Masteri Thảo Điền, Masteri An
+                                    Phú, Masteri Millennium, M-One Gia Định, M-One Nam Sài Gòn</p>
+                                <p></p>
+                                <p>Các dự án đang triển khai của Masterise Homes tại TP.HCM: Lumière Riverside, Masteri
+                                    Centre Point, Grand Marina Saigon, The Global City, The Rivus.</p>
+                                <p></p>
+                                <p>Các dự án đang triển khai của Masterise Homes tại Hà Nội: The Grand Hanoi, Masteri
+                                    Waterfront, Masteri West Heights.</p>
+                            </desc-view-more>
+                        </div>
+                        <div class="content">
+                            <ul class="detail-more">
+                                <li>
+                                    <p>Trạng thái:</p>
+                                    <b>Sắp mở bán</b>
+                                </li>
+                                <li>
+                                    <p class="left">Loại hình:</p>
+                                    <p class="right list-type">
+                                        <span>Biệt thự</span><span>Nhà phố</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="left">Diện tích</p>
+                                    <p class="right">267,300 m²</p>
+                                </li>
+                                <li>
+                                    <p class="left">Mật độ xây dựng (%)</p>
+                                    <p class="right">40</p>
+                                </li>
+                                <li>
+                                    <p class="left">Chủ đầu tư</p>
+                                    <p class="right">
+                                        <span class="comma">
+                                            <a href="/chu-dau-tu/masterise-homes">
+                                                Masterise Homes
+                                            </a>
+                                        </span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box-collapse">
+                        <h2 class="heading-02 heading-02__sub">Tiện ích</h2>
+                        <div class="collapse">
+
+                        </div>
+                    </div>
+                    <div class="box-collapse buy-with-rever project-campaign">
+                        <div class="collapse">
+                            <div class="content">
+                                <div class="logo">
+                                    <img data-src="./JSDemo/WebBDS/Image/NESTATE_LOGO.jpg" class="lazy" alt="Rever">
+                                </div>
+                                <h3 class="title">Vì sao nên mua dự án The Rivus?</h3>
+                                <div class="content-row">
+                                    <ul>
+
+
+                                        <li>Chúng tôi luôn đứng về phía Khách Hàng.</li>
+                                        <li>Cung cấp miễn phí thông tin thị trường BĐS khu vực.</li>
+                                        <li>Chuyên viên Rever sẵn sàng hỗ trợ 24/7.</li>
+                                    </ul>
+                                </div>
+
+                                <a style="opacity:0.7" href="javascript:void(0)"
+                                    class="buy-with-rever__cta btn-project-popup-subscribebox">Hỏi thêm thông tin</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="position" class="box-collapse">
+                        <h2 class="heading-02">Vị trí dự án</h2>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- bạn đang quan tân dén dự án The Virus -->
+    <!-- <div class="project-form">
+        <div id="project-bottom-subscribe-form" class="project-form__container">
+            <project-subscribe-form @on-submit-success="onSubmitSuccess" class="form__grid--reverse">
+            </project-subscribe-form>
+        </div>
+    </div> -->
+    <footer id="footer" style="margin-top:7rem;">
+        <div class="inner">
+            <div class="row">
+                <ul class="contact-group">
+                    <li class="item">
+                        <div class="icon">
+                            <i class="zmdi zmdi-phone"></i>
+                        </div>
+                        <div class="detail">
+                            <p class="title">Hotline miễn phí (24/7)</p>
+                            <p class="link">
+                                <a href="tel:1800234546">1800 234 546</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="icon">
+                            <i class="zmdi zmdi-phone"></i>
+                        </div>
+                        <div class="detail">
+                            <p class="title">Khiếu nại, phản hồi (miễn phí)</p>
+                            <p class="link">
+                                <a href="tel:1800 234 560">1800 234 560</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="icon">
+                            <i class="zmdi zmdi-email-open"></i>
+                        </div>
+                        <div class="detail">
+                            <p class="title">Bộ phận kinh doanh</p>
+                            <p class="link">
+                                <a href="/cdn-cgi/l/email-protection#295a48454c5a695b4c5f4c5b075f47"><span
+                                        class="__cf_email__"
+                                        data-cfemail="5003313c35231022352635227e263e">[email&#160;protected]</span></a>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="icon">
+                            <i class="zmdi zmdi-email-open"></i>
+                        </div>
+                        <div class="detail">
+                            <p class="title">Phòng dự án</p>
+                            <p class="link">
+                                <a href="/cdn-cgi/l/email-protection#d6a6beb9b8b1b2a3b7b896a4b3a0b3a4f8a0b8"><span
+                                        class="__cf_email__"
+                                        data-cfemail="fd8d9592939a99889c93bd8f988b988fd38b93">[email&#160;protected]</span></a>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="icon">
+                            <i class="zmdi zmdi-email-open"></i>
+                        </div>
+                        <div class="detail">
+                            <p class="title">Chăm sóc khách hàng</p>
+                            <p class="link">
+                                <a href="/cdn-cgi/l/email-protection#64171114140b16102416011201164a120a"><span
+                                        class="__cf_email__"
+                                        data-cfemail="ebb89e9b9b84999fab998e9d8e99c59d85">[email&#160;protected]</span></a>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script type="deferjs" src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/js/jquery-ui.min.js?v=1650377153732"></script>
+
+
+
+    <script>
+        adroll_adv_id = "VHUFKBW42JH37IACSQW3PD";
+        adroll_pix_id = "734MVFGRZFAB7JCBBH46O6";
+    </script>
+
+
+
+    <script type="deferjs" id="hs-script-loader" src="//js.hs-scripts.com/2775524.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="deferjs"
+        src="https://s3-cdn.rever.vn/p/v2.42.42/app_v2/login-popup-app.min.js?v=1650377153732"></script>
+    <style>
+        #msform a.butt-primary[disabled] {
+            opacity: 0.4
+        }
+    </style>
+    <!-- bạn đang quan tâm đến dự án -->
+
+    <script type="deferjs"
+        src="https://s3-cdn.rever.vn/p/v2.42.42/app_v2/feedback-modal.min.js?v=1650377153732"></script>
+    <script>
+        window.RFeedback = {
+            API: "https://rever.vn/mapi",
+            email: "",
+            name: "",
+            phone: "",
+            ip: "10.5.105.199"
+        }
+    </script>
+    
+
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/js/footer-home.js"></script>
+
+
+
+    <div class="cta__bottom">
+        <ul class="cta__bottom--grid">
+            <li class="cta__bottom--item cta-form">
+                <a data-project-contact="mobile_contact_me" href="javascript:void(0)" style="opacity: 0.3"><i
+                        class="zmdi zmdi-comment-outline "></i>Liên hệ lại tôi</a>
+            </li>
+            <li class="cta__bottom--item cta-hotline">
+
+                <a href="tel:1800234546" data-hotline-track="target_type: project"
+                    data-phone-hidden="category: ContactProject, event: ClickFixedSidebarHotline"><i
+                        class="zmdi zmdi-phone"></i><span class="text">1800 234 ***</span></a>
+            </li>
+        </ul>
+    </div>
+    <div id="project-components">
+        <project-contact ref="contact"></project-contact>
+        <popup-share-social></popup-share-social>
+        <gallery-fullscreen></gallery-fullscreen>
+        <popup-project-subscribe-box></popup-project-subscribe-box>
+        <dialogs-wrapper wrapper-name="default"></dialogs-wrapper>
+    </div>
+    <script type="deferjs">
+  (function () {
+    var formQueue = [];
+
+    function queuedForm(opt) {
+      if (formQueue && !(hbspt && hbspt.forms && hbspt.forms.deps)) {
+        formQueue.push(opt);
+      }
+    }
+
+    var awaitTimeout = 0;
+    var awaitHSForm = function () {
+      awaitHSForm.called = true;
+      if (formQueue && hbspt && hbspt.forms && hbspt.forms.deps) {
+        formQueue.forEach(function (_opt) {
+          hbspt.forms.create(_opt);
+        });
+        clearTimeout(awaitTimeout);
+        delete formQueue;
+      } else {
+        awaitTimeout = setTimeout(awaitHSForm, 500);
+      }
+    };
+    window['hbspt'] = {
+      forms: {
+        create: function (opt) {
+          if (!awaitHSForm.called) {
+            awaitHSForm();
+          }
+          queuedForm(opt);
+        }
+      }
+    };
+  })();
+
+</script>
+    <!--[if lte IE 8]>
+  <script charset="utf-8" async defer type="text/javascript"
+          src="https://rever.vn/public/externaljs"></script>
+  <![endif]-->
+    <script charset="utf-8" type="deferjs" src="//js.hsforms.net/forms/v2.js"></script>
+    <script type="deferjs">
+  function createHSForm(opt) {
+    function getClientId() {
+      try {
+        return ga.getAll()[0].get('clientId');
+      } catch (e) {
+        return ""
+      }
+    }
+
+    var optFS = opt['onFormSubmit'];
+    var defaultOpt = Object.create(opt);
+    defaultOpt.onFormSubmit = function () {
+      var $gaClientId = $('[name=ga_client_id]');
+      if ($gaClientId[0]) {
+        $gaClientId.val(getClientId());
+      }
+      if (typeof optFS === 'function') {
+        optFS.apply(this, arguments)
+      }
+    };
+    return hbspt.forms.create(defaultOpt);
+  }
+  var dialogManager = (function DialogService() {
+    var fact = this;
+    fact.bodyClassSpecs = "mdialog-body";
+    fact.bodyLoadingClass = "mdialog-loading";
+    fact.cachedBodyStyle = null;
+    fact.default = {
+      zindex: 99999,
+      width: 300,
+      minHeight: 100,
+      background: "rgba(0,0,0,.5)",
+      opacity: 0.5
+    };
+    fact.key = {
+      cachedStyle: "cached-style"
+    };
+    var v0 = 0.05;
+    var a = 0.0002;
+    fact.show = function (selectorId, options, hideFn, showFn) {
+      options = $.extend(true, {
+        outSideClick: true
+      }, options || {});
+      options.maxWidth = "100%";
+      var dialog, oldStyle = document.body.getAttribute("style");
+      document.body.setAttribute(fact.key.cachedStyle, oldStyle);
+      if (selectorId && typeof selectorId === 'string') {
+        dialog = $(document.getElementById(selectorId));
+      } else {
+        dialog = selectorId;
+      }
+      dialog.css("opacity", 0);
+      dialog.css("overflow-y", "auto");
+      dialog.css("overflow-x", "hidden");
+      dialog.addClass("opened");
+      var bodyClass = (options ? options.body : "") || ".body";
+      dialog.find(bodyClass).css(options);
+      dialog.find(bodyClass).addClass(fact.bodyClassSpecs)
+      dialog[0] ? dialog[0]["$dialogCallback"] = hideFn : null;
+      dialog[0] ? dialog[0]["$dialogInitTime"] = +new Date() : null;
+      if (options && options.close) {
+        dialog.find(bodyClass + " " + options.close).off().click(function (e) {
+          e.preventDefault();
+          fact.hide(selectorId, hideFn);
+        });
+      }
+      if (options && options.outSideClick) {
+        dialog.off().click(function () {
+          fact.hide(selectorId, hideFn);
+        });
+      }
+      dialog.find(bodyClass).click(function (e) {
+        e.stopPropagation();
+      });
+      //.preventParentScroll();
+      fact.animation(dialog, 0, 0, 1, function () {
+        showFn ? showFn() : null;
+      });
+      fact.loadingEnd(dialog);
+      return dialog;
+    };
+    fact.animation = function (dialog, opa, t, delta, callback) {
+      dialog.css("opacity", opa);
+      if ((delta > 0 && opa > 1) || (delta < 0 && opa < 0)) {
+        if (callback) {
+          callback();
+        }
+        return;
+      }
+      setTimeout(function () {
+        opa += delta * (v0 * t + 1 / 2 * a * t * t);
+        fact.animation(dialog, opa, t + 1, delta, callback);
+      }, 10);
+    };
+    fact.hide = function (selectorId, fn) {
+      var dialog;
+      if (!selectorId) {
+        dialog = $(".mdialog.opened");
+      } else if (typeof selectorId === 'string') {
+        dialog = $(document.getElementById(selectorId));
+      } else {
+        dialog = selectorId;
+      }
+      fact.animation(dialog, 1, 0, -1, function () {
+        dialog.removeClass("opened");
+        fn ? fn(dialog) : null;
+      });
+    };
+    fact.loadingStart = function (selectorId) {
+      var dialog;
+      if (!selectorId) {
+        dialog = $(".mdialog.opened");
+      } else if (typeof selectorId === 'string') {
+        dialog = $(document.getElementById(selectorId));
+      } else {
+        dialog = selectorId;
+      }
+      dialog.find("." + fact.bodyClassSpecs).addClass(fact.bodyLoadingClass);
+    };
+    fact.loadingEnd = function (selectorId) {
+      var dialog;
+      if (!selectorId) {
+        dialog = $(".mdialog.opened");
+      } else if (typeof selectorId === 'string') {
+        dialog = $(document.getElementById(selectorId));
+      } else {
+        dialog = selectorId;
+      }
+      dialog.find("." + fact.bodyClassSpecs + "." + fact.bodyLoadingClass).removeClass(fact.bodyLoadingClass);
+    };
+    $(window).keydown(function (e) {
+      var openedDialog = $(".mdialog.opened");
+      if (openedDialog.length && e.keyCode == 27) {
+        var arr = [];
+        arr.length = openedDialog.length;
+        for (var i = 0; i < openedDialog.length; i++) {
+          for (var j = i; j < openedDialog.length; j++) {
+            if (openedDialog[i]["$dialogInitTime"] > openedDialog[j]["$dialogInitTime"]) {
+              arr[j] = openedDialog[i];
+              arr[i] = openedDialog[j];
+            } else {
+              arr[i] = openedDialog[i];
+              arr[j] = openedDialog[j];
+            }
+          }
+        }
+        var lastedOpen = arr[arr.length - 1];
+        if (lastedOpen) {
+          fact.hide($(lastedOpen), lastedOpen ? lastedOpen["$dialogCallback"] : null);
+        }
+      }
+    });
+    fact.initStyles = function () {
+      var css = "";
+      var style = document.createElement("STYLE");
+      var head = document.head || document.getElementsByTagName("head")[0];
+      style.type = "text/css";
+      if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(this.getCss()));
+      }
+      head.appendChild(style);
+    };
+    fact.getCss = function () {
+      var options = fact.default;
+      var css = "";
+      var dialog = {};
+      dialog["display"] = "none";
+      dialog["position"] = "fixed";
+      dialog["top"] = "0";
+      dialog["height"] = "100%";
+      dialog["left"] = "0";
+      dialog["width"] = "100%";
+      dialog["z-index"] = options.zindex;
+      dialog["background"] = options.background;
+      css += fact.assignStyle(".mdialog", dialog);
+      css += ".mdialog.opened{display: block;}";
+      var body = {};
+      body["width"] = options.width + "px";
+      body["min-height"] = options.minHeight + "px";
+      body["background"] = "#fff";
+      body["margin"] = "60px auto 140px auto";
+      css += fact.assignStyle(".mdialog .body", body);
+      var bodySpecs = {};
+      bodySpecs["position"] = "relative"
+      css += fact.assignStyle("." + fact.bodyLoadingClass, bodySpecs);
+      var loadingFrame = {};
+      loadingFrame["content"] = "' '";
+      loadingFrame["top"] = 0;
+      loadingFrame["left"] = 0;
+      loadingFrame["width"] = "100%";
+      loadingFrame["height"] = "100%";
+      loadingFrame["position"] = "absolute";
+      loadingFrame["background"] = "#fff";
+      loadingFrame["opacity"] = 0.4;
+      loadingFrame["z-index"] = 1;
+      css += fact.assignStyle("." + fact.bodyLoadingClass + ":before", loadingFrame);
+      var loading = {};
+      loading["content"] = "' '";
+      loading["border"] = "2px solid #303339";
+      loading["border-top"] = "2px solid #fff;";
+      loading["border-radius"] = "50%";
+      loading["width"] = "30px";
+      loading["height"] = "30px";
+      loading["position"] = "absolute";
+      loading["top"] = "calc(50% - 15px)";
+      loading["left"] = "calc(50% - 15px)";
+      loading["-webkit-animation"] = "spin 2s linear infinite";
+      loading["animation"] = "spin 2s linear infinite";
+      loading["z-index"] = 1;
+      css += fact.assignStyle("." + fact.bodyLoadingClass + ":after", loading);
+      css += "@-webkit-keyframes spin { 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }";
+      return css;
+    };
+    fact.assignStyle = function (name, cssobj) {
+      var res = name + "{";
+      for (var key in cssobj) {
+        var val = cssobj[key];
+        res += key + ":" + val + ";";
+      }
+      res += "}";
+      return res;
+    };
+    fact.initStyles();
+    return fact;
+  })();
+
+
+</script>
+    <script>
+        window.ProjectV3 = {
+            propertyTab: "",//Tab default trong danh sách property
+            totalRentProperty: 0,
+            totalSaleProperty: 0,
+            projectId: "1648088636783_6313",
+            towers: [],
+            layoutApartments: [],
+            galleries: ["https://photo.rever.vn/v3/get/rvXKgnXrA2CtJ11IuDZ48aLZaK1u3Xjay3SPlw2ApcT+KIsXVPrDRvCnzoOC9D1ioeorYPCxTghY9TFYf92fplZg==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rvF6d+Zw+JJuoIwZHY4TbOZRSJG1oJ90aet97YAlxl5eZ_XDdbj5Za7vBpFT0uyVbsWyoAzSpL1DiHTbMueyF0Gg==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rv4eBpzSIN8cxLURPZWTml1l6K30QLxL3s80ffmUwvneX1O1F+21jxNEA52HTCmyW9IYQGFyjJ+omz9_UWx9mt1w==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rvWJfnXDVdJBRnJkLQNhiHual7Mg+xk4VC8XepsYN7v595PzORYddmfaEBuUq1o98HuKjJBkyxienlcIfEAGuMMQ==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rvf0KfGddixv3sfy0W_KsjmCHWqXUoAKqJEPUpPp7JZgmH+9lTKws4ShC4_iAqwf+CVU3SCpWKM+miQm089krXBg==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rvjRYyHlm38IzXQL56NtCRISp+uejrWptDiimxieJmC15DFEoyYcK1IUvhhZ+awhv8KxJzixrmJC9QLCK8sg9Oww==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rvn97K3R2Uvch6YY5PXiad9jrJdznKROkM2OIf4H5gsadeLPg7t52ajCImEUr0zBuFoMOtc0Kkg85l4LWjSUPLUw==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rvB9lXxCARfSNFxg8uEducuEHtd5q2LBcLZi1vv3ROvQPq4wzZfBZyr14TbNyVw0MMxsdCXq7V3vsgNvTA6eGH1g==/900x600/image.jpg", "https://photo.rever.vn/v3/get/rvuWFdfAOD3cp4QAysnAqMOldlfYbZx6ZPEG1T6QqdcIDE4nZTDArYyUgPo76sZJOI3angrhPDT9MrohydPNc+0Q==/900x600/image.jpg"],
+            masterPlanThumbnail: ""
+        }
+        window.UserIp = "14.250.213.102"
+    </script>
+    <script type="deferjs"
+        src="https://s3-cdn.rever.vn/p/v2.42.42/js/jquery.flexslider.jfix-0.0.1.min.js?v=1650377153732"></script>
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/js/vendor/ion-slider/ion.rangeSlider.js"></script>
+    <script type="deferjs"
+        src="https://s3-cdn.rever.vn/p/v2.42.42/app_v2/project-detail-v3.min.js?v=1650377153732"></script>
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/import/external.js?v=1650377153732"></script>
+    <script type="deferjs" src="https://s3-cdn.rever.vn/p/import/tracking.min.js?v=1650377153732"></script>
+    <script type="text/javascript">
+            (function (c, l, a, r, i, t, y) {
+                c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+                t = l.createElement(r); t.async = 1; t.defer = 1; t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+            })(window, document, "clarity", "script", "3y09hfteky");
+    </script>
+    <script type="deferjs">
+    window.ga && ga('send', 'event', 'ProjectCTABetaTest', 'Display', 'Default');
+  </script>
+    <script>
+        var addthis_share = {
+            url: window.location.href
+        }
+    // AgentWithFavorite(id-unknown,,Rever.vn,https://rever.vn/photo/v2/get/e0OOJdqyE3M92qGnXjcBKJ4utsgFppUz1Y+vfTNcNfI=/750x500/OMyZdGHsT0T9EEdN.png,1800 234 546,support@rever.vn,Hỗ trợ 24/7,Bộ phận KD,List(),0,Rever.vn,0,false)
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Place",
+            "name": "The Rivus",
+            "id": "1648088636783_6313",
+            "url": "https://rever.vn/du-an/the-rivus",
+            "description": "&lt;p&gt;Chủ đầu tư Masterise Homes trong năm 2022 sẽ ra mắt phân khu dinh thự, biệt thự tại khu đô thị Vinhomes Grand Park (Phường Long Bình, TP Thủ Đức) với tên gọi chính thức là The Rivus by Elie Saab - Giới hạn chỉ 121 căn dinh thự diện tích lớn.&amp;nbsp;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;strong&gt;Thông tin tổng quan dự án The Rivus:&lt;/strong&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;- Chủ đầu tư dự án The Rivus: Masterise Homes&lt;/p&gt; &#10;&lt;p&gt;- Vị trí dự án The Rivus: KĐT Vinhomes Grand Park, phường Long Bình, TP Thủ Đức&lt;/p&gt; &#10;&lt;p&gt;- Quy mô dự án The Rivus: 26,73 ha&lt;/p&gt; &#10;&lt;p&gt;- Tổng số dinh thự dự án The Rivus: 121 căn&lt;/p&gt; &#10;&lt;p&gt;- Mật độ xây dựng dự án The Rivus: ~ 40% đối với dinh thự, ~15% cho toàn bộ khuôn viên&lt;/p&gt; &#10;&lt;p&gt;- Hình thức: Sở Hữu Lâu dài đối với người Việt Nam.&lt;/p&gt; &#10;&lt;p&gt;- Bàn giao dự kiến dự án The Rivus: Quý 1/2024&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;strong&gt;Các loại dinh thự tại dự án The Rivus:&lt;/strong&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;1/ The Sava Collection - 4 Phòng Ngủ - 2 Phòng Khách - Diện tích đất: 560 - 851.8m2&lt;/p&gt; &#10;&lt;p&gt;2/ The Seine Collection - 5 Phòng Ngủ - Diện tích đất: 745m2 đến 1.160m2&lt;/p&gt; &#10;&lt;p&gt;3/ The Danube Collection - 6 Phòng Ngủ - Diện tích 1.010m2 đến 1287,6m2&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;strong&gt;Thông tin chủ đầu tư Masterise Homes:&lt;/strong&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Masterise Homes là công ty thành viên thuộc tập đoàn Masterise (tiền thân là công ty Cổ phần Đầu tư Thảo Điền - Thao Dien Investment). Danh mục triển khai dự án của Masterise Homes phần lớn là thuộc phân khúc cao tầng. Ngay bây giờ, hãy cùng Rever tìm hiểu chi tiết các dự án bất động sản của Masterise Homes đang góp mặt trên thị trường.&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Các dự án đã bàn giao của Masterise Homes tại TP.HCM: Masteri Thảo Điền, Masteri An Phú, Masteri Millennium, M-One Gia Định, M-One Nam Sài Gòn&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Các dự án đang triển khai của Masterise Homes tại TP.HCM: Lumière Riverside, Masteri Centre Point, Grand Marina Saigon, The Global City, The Rivus.&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Các dự án đang triển khai của Masterise Homes tại Hà Nội: The Grand Hanoi, Masteri Waterfront, Masteri West Heights.&lt;/p&gt;",
+            "image": "https://photo.rever.vn/v3/get/rv952EXmH0v2qiUju5xawDy0SMcufrVGrND7pkrbBWDFUHRxq2_cIA8ADOzUieGKn3tX6aS9h3rjqtBLP8QSZc+A==/750x500/image.jpg"
+            ,"brand":{
+                "@type": "Thing",
+                "name":"Masterise Homes",
+                "logo":"https://photo.rever.vn/v2/get/rSV1MpjGtpKFlhGFyFE8Dqijdyq21AuY3NiovyIPyMo=/450x300/image.jpg"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "LocalBusiness",
+            "name": "The Rivus",
+            "id": "1648088636783_6313",
+            "url": "https://rever.vn/du-an/the-rivus",
+            "description": "&lt;p&gt;Chủ đầu tư Masterise Homes trong năm 2022 sẽ ra mắt phân khu dinh thự, biệt thự tại khu đô thị Vinhomes Grand Park (Phường Long Bình, TP Thủ Đức) với tên gọi chính thức là The Rivus by Elie Saab - Giới hạn chỉ 121 căn dinh thự diện tích lớn.&amp;nbsp;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;strong&gt;Thông tin tổng quan dự án The Rivus:&lt;/strong&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;- Chủ đầu tư dự án The Rivus: Masterise Homes&lt;/p&gt; &#10;&lt;p&gt;- Vị trí dự án The Rivus: KĐT Vinhomes Grand Park, phường Long Bình, TP Thủ Đức&lt;/p&gt; &#10;&lt;p&gt;- Quy mô dự án The Rivus: 26,73 ha&lt;/p&gt; &#10;&lt;p&gt;- Tổng số dinh thự dự án The Rivus: 121 căn&lt;/p&gt; &#10;&lt;p&gt;- Mật độ xây dựng dự án The Rivus: ~ 40% đối với dinh thự, ~15% cho toàn bộ khuôn viên&lt;/p&gt; &#10;&lt;p&gt;- Hình thức: Sở Hữu Lâu dài đối với người Việt Nam.&lt;/p&gt; &#10;&lt;p&gt;- Bàn giao dự kiến dự án The Rivus: Quý 1/2024&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;strong&gt;Các loại dinh thự tại dự án The Rivus:&lt;/strong&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;1/ The Sava Collection - 4 Phòng Ngủ - 2 Phòng Khách - Diện tích đất: 560 - 851.8m2&lt;/p&gt; &#10;&lt;p&gt;2/ The Seine Collection - 5 Phòng Ngủ - Diện tích đất: 745m2 đến 1.160m2&lt;/p&gt; &#10;&lt;p&gt;3/ The Danube Collection - 6 Phòng Ngủ - Diện tích 1.010m2 đến 1287,6m2&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;strong&gt;Thông tin chủ đầu tư Masterise Homes:&lt;/strong&gt;&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Masterise Homes là công ty thành viên thuộc tập đoàn Masterise (tiền thân là công ty Cổ phần Đầu tư Thảo Điền - Thao Dien Investment). Danh mục triển khai dự án của Masterise Homes phần lớn là thuộc phân khúc cao tầng. Ngay bây giờ, hãy cùng Rever tìm hiểu chi tiết các dự án bất động sản của Masterise Homes đang góp mặt trên thị trường.&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Các dự án đã bàn giao của Masterise Homes tại TP.HCM: Masteri Thảo Điền, Masteri An Phú, Masteri Millennium, M-One Gia Định, M-One Nam Sài Gòn&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Các dự án đang triển khai của Masterise Homes tại TP.HCM: Lumière Riverside, Masteri Centre Point, Grand Marina Saigon, The Global City, The Rivus.&lt;/p&gt; &#10;&lt;p&gt;&lt;/p&gt; &#10;&lt;p&gt;Các dự án đang triển khai của Masterise Homes tại Hà Nội: The Grand Hanoi, Masteri Waterfront, Masteri West Heights.&lt;/p&gt;",
+            "address": "Nguyễn Xiển, Long Bình, Quận 9, Hồ Chí Minh",
+            "image": "https://photo.rever.vn/v3/get/rv952EXmH0v2qiUju5xawDy0SMcufrVGrND7pkrbBWDFUHRxq2_cIA8ADOzUieGKn3tX6aS9h3rjqtBLP8QSZc+A==/750x500/image.jpg",
+            "telephone": "1800 234 546",
+            "email": "contact@rever.vn",
+            "openingHours": "Mo, Tu, We, Th, Fr, Sa 08:30-18:00 Su 08:30-12:00"
+                ,"geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": "10.841644913373246",
+                    "longitude": "106.84928287474365"
+                }
+            ,"brand":{
+                "@type": "Thing",
+                "name":"Masterise Homes"
+            }
+        }
+    </script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"
+        integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw=="
+        data-cf-beacon='{"rayId":"6ffeff5cbfc38b51","token":"b9d1689a17d74d549fc655909e2b2979","version":"2021.12.0","si":100}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -24,7 +24,8 @@ public class LoginController {
 	@GetMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("admin", new Admin());
-		return "Management/login";
+		model.addAttribute("message", "");
+		return "Management/Admin/login";
 	}
 	
 	@PostMapping("/login")
@@ -34,7 +35,7 @@ public class LoginController {
 			 return "redirect:/management";
 		 }
 		model.addAttribute("message", "Sai tài khoản hoặc mật khẩu");
-		return "Management/login";
+		return "Management/Admin/login";
 	}
 	
 	@ModelAttribute("adminSession")

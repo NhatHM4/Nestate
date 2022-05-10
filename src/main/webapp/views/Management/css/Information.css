@@ -1,0 +1,108 @@
+div.container {
+  width: 100%;
+}
+
+div.tab {
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+div.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+div.tab button:hover {
+  background-color: #ddd;
+}
+
+div.tab button.active {
+  background-color: #ccc;
+}
+.tablinks {
+  font-weight: bold;
+}
+.active {
+  color: red;
+}
+
+.tabcontent1 {
+  max-width: 100%;
+  margin-top: 40px;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto 6rem 6rem;
+  grid-gap: 10px;
+}
+.item {
+  font-size: 19.845px;
+  margin-left: 20px;
+}
+.infor-p {
+  font-size: 19.845px;
+  font-weight: bold;
+  line-height: 27.783px;
+  text-align: center;
+}
+
+.infor-p-item {
+  font-size: 19.845px;
+  font-weight: bold;
+  line-height: 27.783px;
+}
+
+/* device tablet */
+@media only screen and (max-width: 768px) {
+  .tabcontent1 {
+    max-width: 100%;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .infor-p {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .infor-p-item {
+    font-size: 17px;
+
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .tabcontent1 {
+    max-width: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 10px;
+  }
+
+  .infor-p {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 27.783px;
+    text-align: center;
+  }
+
+  .infor-p-item {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 27.783px;
+  }
+}
+/* #Team {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
+  } */

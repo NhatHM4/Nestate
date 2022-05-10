@@ -1,5 +1,7 @@
 package com.example.webdbs.entity;
 
+
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,7 +11,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "ProductDetail")
 public class ProductDetail extends BaseEntity{
@@ -66,4 +80,6 @@ public class ProductDetail extends BaseEntity{
 	@PrimaryKeyJoinColumn
 	private TypeInfo typeInfo;
 	
+	@Transient
+	private List<MultipartFile > listFile;
 }

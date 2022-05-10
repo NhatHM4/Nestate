@@ -22,13 +22,33 @@ public class NewsDetail extends BaseEntity{
 	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String decription;
 	
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String address;
+	
+	@Column
+	private long price;
+	
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String status;
+	
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String boss;
+	
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String type;
+	
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String phone;
+	
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String infoProject;
+	
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String buildDensity;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "newsDetail")
 	@PrimaryKeyJoinColumn
 	private Image image;
-	//dung oc cho
-	//alo alo
 	
-	// alooala
 
 }
