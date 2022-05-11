@@ -3,8 +3,9 @@ package com.example.webdbs.respository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.webdbs.entity.BossInfo;
+import com.example.webdbs.entity.ImageHome;
+
 @Repository
-public interface BossInfoRepository extends JpaRepository<BossInfo, Long>{
+public interface ImageHomeRepository extends JpaRepository<ImageHome, Long> {
 
 }

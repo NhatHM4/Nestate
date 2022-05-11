@@ -70,16 +70,15 @@ public class ProductDetail extends BaseEntity{
 	private String linkMap;
 	
 	@OneToMany(mappedBy = "productDetail")
-	private Set<Image> setImage;
+	private Set<ImageProductDetail> setImage;
 	
-	@OneToOne(mappedBy = "productDetail", cascade =  CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private BossInfo bossInfo;
-	
-	@OneToOne(mappedBy = "productDetail", cascade =  CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private TypeInfo typeInfo;
 	
 	@Transient
-	private List<MultipartFile > listFile;
+	private List<MultipartFile> listFile;
+	
+	@Column(columnDefinition = "Nvarchar(max)")
+	private String bossInfoDecription;
+	
+	@Column(columnDefinition = "Nvarchar(max)")
+	private String typeInfoDecription;
 }

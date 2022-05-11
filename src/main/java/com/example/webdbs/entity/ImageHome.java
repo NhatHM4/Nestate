@@ -1,31 +1,26 @@
 package com.example.webdbs.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Image")
-public class Image extends BaseEntity{
+@Table(name = "ImageHome")
+public class ImageHome extends BaseEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Column(columnDefinition = "nvarchar(max)")
+	private String linkImage;
+	
 	@ManyToOne
 	@JoinColumn(name = "idHome", nullable = false)
 	private Home home;
+//	
 	
-	@OneToOne
-	@MapsId
-	@JoinColumn(name = "idNewsDetail")
-	private NewsDetail newsDetail;
-
-	@ManyToOne
-	@JoinColumn(name = "idProductDetail", nullable = false)
-	private ProductDetail productDetail;
 }
