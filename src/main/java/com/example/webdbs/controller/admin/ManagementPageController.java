@@ -15,7 +15,6 @@ public class ManagementPageController {
 	
 	@GetMapping("/management")
 	public String Management(@ModelAttribute("adminSession") Admin admin, Model model) {
-		System.out.println(admin);
 		if (admin !=null) {
 			model.addAttribute("productDetail", new ProductDetail());
 			return "Management/Admin/detailProduct";
