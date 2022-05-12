@@ -1,5 +1,7 @@
 package com.example.webdbs.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -40,4 +42,28 @@ public class ImageProductDetail extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "idProductDetail", nullable = false)
 	private ProductDetail productDetail;
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(linkImage, productDetail);
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ImageProductDetail other = (ImageProductDetail) obj;
+		return Objects.equals(linkImage, other.linkImage) && Objects.equals(productDetail, other.productDetail);
+	}
+	
+	
 }

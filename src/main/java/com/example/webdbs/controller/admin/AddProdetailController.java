@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,10 +24,21 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.webdbs.entity.ImageProductDetail;
 import com.example.webdbs.entity.ProductDetail;
+import com.example.webdbs.service.ImageProductDetailService;
+import com.example.webdbs.service.ProductDetailService;
 
 @Controller
 public class AddProdetailController {
-
+	
+	@Value("${upload.path}")
+    private String fileUpload;
+	
+	@Autowired
+	private ProductDetailService productDetailService;
+	
+	@Autowired
+	private ImageProductDetailService imageProductDetailService;
+	
 	@PostMapping("/add")
 	public String addProjectDetail(@ModelAttribute("projectDetail") ProductDetail productDetail) {
 		List<MultipartFile> listFile = productDetail.getListFile();
@@ -32,9 +46,16 @@ public class AddProdetailController {
 		Map asMap = ObjectUtils.asMap("cloud_name", "haminhnhat711", "api_key", "414128439647965", "api_secret",
 				"weG0sfQ2m6mxoYuL56aiCKAOIXs", "secure", true);
 		for (MultipartFile file : listFile) {
-			Cloudinary cloudinary = new Cloudinary(asMap);
-
+			String fileName = file.getOriginalFilename();
 			try {
+				FileCopyUtils.copy(file.getBytes(), new File(this.fileUpload + fileName));	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Cloudinary cloudinary = new Cloudinary(asMap);
+			try {
+				
 				File file2 = convert(file);
 				Map upload = cloudinary.uploader().upload(file2, asMap);
 				setImage.add(new ImageProductDetail((String) upload.get("secure_url"), productDetail));
@@ -44,12 +65,17 @@ public class AddProdetailController {
 			}
 		}
 		productDetail.setSetImage(setImage);
-		System.out.println(productDetail);
-		return "";
+		productDetailService.save(productDetail);
+		for (ImageProductDetail imageProductDetail : setImage) {
+			System.out.println("+ 123123" + imageProductDetail.getLinkImage());
+			imageProductDetailService.save(imageProductDetail);
+		}
+		
+		return "redirect:/login";
 	}
 
-	private static File convert(MultipartFile file) throws IOException {
-		Path newFile = Paths.get(file.getOriginalFilename());
+	public File convert(MultipartFile file) throws IOException {
+		Path newFile = Paths.get(this.fileUpload+file.getOriginalFilename());
 		try (InputStream is = file.getInputStream(); OutputStream os = Files.newOutputStream(newFile)) {
 			byte[] buffer = new byte[4096];
 			int read = 0;
