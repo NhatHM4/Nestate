@@ -25,6 +25,8 @@ public class ManagementPageController {
 		return "redirect:/login";
 	}
 	
+	
+	
 	@ModelAttribute("adminSession")
 	public Admin getAdmin() {
 		return null;

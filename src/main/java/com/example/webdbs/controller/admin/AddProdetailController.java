@@ -67,7 +67,6 @@ public class AddProdetailController {
 		productDetail.setSetImage(setImage);
 		productDetailService.save(productDetail);
 		for (ImageProductDetail imageProductDetail : setImage) {
-			System.out.println("+ 123123" + imageProductDetail.getLinkImage());
 			imageProductDetailService.save(imageProductDetail);
 		}
 		
