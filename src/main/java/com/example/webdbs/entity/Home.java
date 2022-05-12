@@ -25,5 +25,5 @@ public class Home extends BaseEntity{
 	private String linkAudio;
 	
 	@OneToMany(mappedBy = "home")
-	private Set<Image> setImage;
+	private Set<ImageHome> setImage;
 }

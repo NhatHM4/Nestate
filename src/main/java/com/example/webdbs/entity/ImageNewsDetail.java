@@ -8,19 +8,23 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BossInfo")
-public class BossInfo extends BaseEntity{
+@Table(name = "ImageNewsDetail")
+public class ImageNewsDetail extends BaseEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Column(columnDefinition = "NVARCHAR(MAX)")
-	private String decription;
+	@Column(columnDefinition = "nvarchar(max)")
+	private String linkImage;
+	
+	
 	
 	@OneToOne
 	@MapsId
-	@JoinColumn(name = "idProductDetail")
-	private ProductDetail productDetail;
+	@JoinColumn(name = "idNewsDetail")
+	private NewsDetail newsDetail;
+
+	
 }

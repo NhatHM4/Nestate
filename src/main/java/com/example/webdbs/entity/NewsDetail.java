@@ -48,7 +48,7 @@ public class NewsDetail extends BaseEntity{
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "newsDetail")
 	@PrimaryKeyJoinColumn
-	private Image image;
+	private ImageNewsDetail image;
 	
 
 }
