@@ -1,8 +1,11 @@
 package com.example.webdbs.entity;
 
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,11 +23,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "ProductDetail")
 public class ProductDetail extends BaseEntity{
@@ -70,8 +75,8 @@ public class ProductDetail extends BaseEntity{
 	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String linkMap;
 	
-	@OneToMany(mappedBy = "productDetail", fetch = FetchType.EAGER)
-	private Set<ImageProductDetail> setImage;
+	@OneToMany(mappedBy = "productDetail", cascade = CascadeType.ALL)
+	private Set<ImageProductDetail> setImage = new TreeSet<ImageProductDetail>();
 	
 	
 	@Transient

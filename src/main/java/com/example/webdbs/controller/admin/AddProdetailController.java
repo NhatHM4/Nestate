@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,27 +43,35 @@ public class AddProdetailController {
 	@PostMapping("/add")
 	public String addProjectDetail(@ModelAttribute("projectDetail") ProductDetail productDetail) {
 		List<MultipartFile> listFile = productDetail.getListFile();
-		Set<ImageProductDetail> setImage = new HashSet<ImageProductDetail>();
+		Set<ImageProductDetail> setImage = new LinkedHashSet<ImageProductDetail>();
 		Map asMap = ObjectUtils.asMap("cloud_name", "haminhnhat711", "api_key", "414128439647965", "api_secret",
 				"weG0sfQ2m6mxoYuL56aiCKAOIXs", "secure", true);
+		int i = 0;
 		for (MultipartFile file : listFile) {
+			
 			String fileName = file.getOriginalFilename();
-			try {
-				FileCopyUtils.copy(file.getBytes(), new File(this.fileUpload + fileName));	
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if ("".equals(fileName)) {
+				i++;
+				setImage.add(new ImageProductDetail("null" + i, productDetail));
+			} else {
+				try {
+					FileCopyUtils.copy(file.getBytes(), new File(this.fileUpload + fileName));	
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Cloudinary cloudinary = new Cloudinary(asMap);
+				try {
+					
+					File file2 = convert(file);
+					Map upload = cloudinary.uploader().upload(file2, asMap);
+					setImage.add(new ImageProductDetail((String) upload.get("secure_url"), productDetail));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			Cloudinary cloudinary = new Cloudinary(asMap);
-			try {
-				
-				File file2 = convert(file);
-				Map upload = cloudinary.uploader().upload(file2, asMap);
-				setImage.add(new ImageProductDetail((String) upload.get("secure_url"), productDetail));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		}
 		productDetail.setSetImage(setImage);
 		productDetailService.save(productDetail);
