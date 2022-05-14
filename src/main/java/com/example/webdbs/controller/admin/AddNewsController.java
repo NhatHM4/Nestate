@@ -46,12 +46,19 @@ public class AddNewsController {
 		return "redirect:/login";
 	}
 	
+	@ModelAttribute("adminSession")
+	public Admin getAdmin() {
+		return null;
+	}
+	
 	@PostMapping("/addnews")
 	public String addNewsGo(@ModelAttribute("newsDetail") NewsDetail newsDetail) {
 		ImageNewsDetail imageNewsDetail = null;
-		Map asMap = ObjectUtils.asMap("cloud_name", "haminhnhat711", "api_key", "414128439647965", "api_secret",
-				"weG0sfQ2m6mxoYuL56aiCKAOIXs", "secure", true);
-		
+		if (newsDetail.getFile().getSize() != 0) {
+			
+			Map asMap = ObjectUtils.asMap("cloud_name", "haminhnhat711", "api_key", "414128439647965", "api_secret",
+					"weG0sfQ2m6mxoYuL56aiCKAOIXs", "secure", true);
+			
 			String fileName = newsDetail.getFile().getOriginalFilename();
 			try {
 				FileCopyUtils.copy(newsDetail.getFile().getBytes(), new File(this.fileUpload + fileName));	
@@ -74,6 +81,9 @@ public class AddNewsController {
 			
 			newDetailService.save(newsDetail);
 			imageNewsDetailService.save(imageNewsDetail);
+		} else {
+			newDetailService.save(newsDetail);
+		}
 			
 		
 		return "redirect:/login";
