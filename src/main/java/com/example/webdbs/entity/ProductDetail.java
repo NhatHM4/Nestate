@@ -81,6 +81,7 @@ public class ProductDetail extends BaseEntity{
 	private Set<ImageProductDetail> setImage = new TreeSet<ImageProductDetail>();
 	
 	
+	
 	@Transient
 	private List<MultipartFile> listFile;
 	

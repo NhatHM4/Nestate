@@ -1,5 +1,6 @@
 package com.example.webdbs.service;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,4 +17,5 @@ public interface NewDetailService {
 	void delete(NewsDetail newsDetail);
 	
 	NewsDetail findById(Long id);
+
 }

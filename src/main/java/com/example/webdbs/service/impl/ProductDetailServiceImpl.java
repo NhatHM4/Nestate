@@ -1,7 +1,10 @@
 package com.example.webdbs.service.impl;
 
 import java.util.List;
+
+
 import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,19 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 		// TODO Auto-generated method stub
 		return productDetailRepository.save(productDetail);
 	}
+
+	@Override
+	public List<ProductDetail> getAll(){
+		List<ProductDetail> listProductDetails = productDetailRepository.findAll();
+		return listProductDetails;
+	}
+	
+	@Override
+	public ProductDetail getOneByID(Long productID){
+		ProductDetail productDetail2 = productDetailRepository.getOnebyProductID(productID);
+		return productDetail2;
+	}
+
 
 	
 
@@ -57,5 +73,6 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 	
 	
 	
+
 
 }

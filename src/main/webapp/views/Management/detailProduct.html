@@ -18,6 +18,100 @@
         img.lazy-background.lazied {
             filter: none;
         }
+
+        /* show-swiper-css */
+        /* Import google font (Balsamiq Sans) */
+        @import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+        /* Box sizing rules */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        /* Remove default padding and margin */
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Default anchor tag styling */
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            cursor: pointer;
+        }
+
+        div.project_content {
+            padding-top: 25vh;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .project_content h1,
+        h2,
+        p {
+            padding: 0.2rem 1rem;
+        }
+
+        .project_container img {
+            height: 75%;
+        }
+
+        /* Swiper container stylng */
+        .swiper {
+            right: 1rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
+            position: relative;
+        }
+
+        .swiper-slide-text {
+            position: absolute;
+            bottom: 3rem;
+        }
+
+        .swiper-slide-text h1 {
+            color: rgb(216, 79, 79);
+            font-family: Open Sans;
+            font-size: 50px;
+            font-weight: 500;
+        }
+
+        .swiper-slide-text h3 {
+            color: white;
+            display: inline;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .swiper-slide-img {
+            /* position: absolute; */
+            width: 100%;
+            height: 100%;
+        }
     </style>
     <script>
         function objValue(obj, is, value) { //Access 1 object bằng key
@@ -199,18 +293,7 @@
         }
     </style>
 
-    <script>
-        window["_au_api"] = "https://rever.vn/api";
-        window['fap_url'] = "https://s3-cdn.rever.vn/p/v2.42.42/js/fap.min.js?v=1650377153732";
-        window['fap.server'] = '//analytics.rever.vn/fap';
-        window['favorite_api'] = 'https://rever.vn/mapi';
-        window['googleClientId'] = '539423642927.apps.googleusercontent.com';
-        window['staticUrl'] = 'https://s3-cdn.rever.vn/p/v2.42.42';
-        window['hotline'] = '1800 234 546';
 
-        window['isLoggedIn'] = false;
-        window['isProduction'] = "true" === "true"
-    </script>
 
 
     <script type="deferjs">
@@ -218,48 +301,7 @@
       analytics.load("4LCsqFQzVAmMhPA650qKAAbZoHweHzHt", { integrations: { 'Mixpanel': false} });
     }}();
   </script>
-    <script type="deferjs">
-    //Track thêm tags
-      var tagTrackings = []
-      
-      var pageviewProperties = {
-  "project_info" : {
-    "id" : "1648088636783_6313",
-    "alias" : "the-rivus"
-  },
-  "address_info" : {
-    "street" : "Nguyễn Xiển",
-    "ward" : "Long Bình",
-    "ward_id" : "1577346021344_5307",
-    "district" : "Quận 9",
-    "district_id" : "1577269008573_2161",
-    "city" : "Hồ Chí Minh",
-    "city_id" : "1576833711767_2408",
-    "geolocation" : {
-      "lat" : 10.841644913373246,
-      "lon" : 106.84928287474365,
-      "valid" : true
-    },
-    "street_id" : "nguyen-xien",
-    "city_alias" : "ho-chi-minh",
-    "district_alias" : "quan-9",
-    "ward_alias" : "long-binh-quan-9",
-    "street_alias" : "nguyen-xien-quan-9-ho-chi-minh",
-    "full" : "Nguyễn Xiển, Long Bình, Quận 9, Hồ Chí Minh",
-    "short" : "Nguyễn Xiển, Quận 9"
-  }
-}
 
-      analytics.page(Object.assign({
-        domain: location.hostname,
-        tags: tagTrackings.length > 0 ? tagTrackings : undefined
-      }, pageviewProperties));
-
-      analytics.ready(function(){
-        //window.mixpanel.init("31bae2b919cfc12821646533a62aee1b")
-        //window.track("Page View")
-      })
-  </script>
 
     <script type="deferjs">(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
     0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
@@ -780,260 +822,8 @@
                                 <span>Trang chủ</span>
                             </a>
                         </li>
-                        <li class="sub-menu">
-                            <a>
-                                <span>Mua</span>
-                                <i class="zmdi zmdi-chevron-down"></i>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="/s/ho-chi-minh/mua"
-                                        data-mix-header-click="group: buy, action: select_all_buy">Tất cả nhà đất
-                                        bán</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/mua/can-ho"
-                                        data-mix-header-click="group: buy, action: select_apartment_buy">Căn
-                                        hộ</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/mua/shop-house"
-                                        data-mix-header-click="group: buy, action: select_shophouse_buy">Shophouse</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/mua/nha-pho"
-                                        data-mix-header-click="group: buy, action: select_house_buy">Nhà
-                                        phố</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/mua/biet-thu"
-                                        data-mix-header-click="group: buy, action: select_villa_buy">Biệt
-                                        thự</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/mua/dat-nen"
-                                        data-mix-header-click="group: buy, action: select_land_buy">Đất
-                                        nền</a>
-                                </li>
-                                <li>
-                                    <a href="/chuyen-vien"
-                                        data-mix-header-click="group: buy, action: select_agent_buy">Gặp chuyên viên tư
-                                        vấn</a>
-                                </li>
-                                <li>
-                                    <a href="/khu-dan-cu"
-                                        data-mix-header-click="group: buy, action: select_zone_buy">Khu dân cư</a>
-                                </li>
-                                <li>
-                                    <a href="/mua-nha-voi-rever"
-                                        data-mix-header-click="group: buy, action: select_lp_buy">Mua với Rever</a>
-                                </li>
-                                <li>
-                                    <a href="/vi-sao-chon-rever"
-                                        data-mix-header-click="group: buy, action: select_pr_buy">Vì sao chọn Rever?</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a>
-                                <span>Thuê</span>
-                                <i class="zmdi zmdi-chevron-down"></i>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="/s/ho-chi-minh/thue"
-                                        data-mix-header-click="group: rent, action: select_all_rent">Tất cả nhà cho
-                                        thuê</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/thue/can-ho"
-                                        data-mix-header-click="group: rent, action: select_apartment_rent">Căn hộ
-                                        cho thuê</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/thue/shop-house"
-                                        data-mix-header-click="group: rent, action: select_shophouse_rent">Shophouse
-                                        cho thuê</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/thue/nha-pho"
-                                        data-mix-header-click="group: rent, action: select_house_rent">Nhà
-                                        phố cho thuê</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/thue/biet-thu"
-                                        data-mix-header-click="group: rent, action: select_villa_rent">Biệt thự
-                                        cho thuê</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/thue/van-phong"
-                                        data-mix-header-click="group: rent, action: select_office_rent">Văn phòng
-                                        cho thuê</a>
-                                </li>
-                                <li>
-                                    <a href="/s/ho-chi-minh/thue/land-business"
-                                        data-mix-header-click="group: rent, action: select_land_rent">Mặt
-                                        bằng cho thuê</a>
-                                </li>
-                                <li>
-                                    <a href="/chuyen-vien"
-                                        data-mix-header-click="group: rent, action: select_agent_rent">Gặp chuyên viên
-                                        tư vấn</a>
-                                </li>
-                                <li>
-                                    <a href="/khu-dan-cu"
-                                        data-mix-header-click="group: rent, action: select_zone_buy">Khu dân cư</a>
-                                </li>
-                                <li>
-                                    <a href="/thue-nha-voi-rever"
-                                        data-mix-header-click="group: rent, action: select_lp_rent">Thuê với Rever</a>
-                                </li>
-                                <li>
-                                    <a href="/vi-sao-chon-rever"
-                                        data-mix-header-click="group: rent, action: select_pr_rent">Vì sao chọn
-                                        Rever?</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a>
-                                <span>Dự án</span>
-                                <i class="zmdi zmdi-chevron-down"></i>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="/du-an" data-mix-header-click="group: rent, action: select_all_project">Tất
-                                        cả dự án</a>
-                                </li>
-                                <li>
-                                    <a href="/s/quan-2/du-an/mua"
-                                        data-mix-header-click="group: rent, action: select_district_two_project">
-                                        Dự án Quận 2
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/s/quan-4/du-an/mua"
-                                        data-mix-header-click="group: rent, action: select_district_four_project">
-                                        Dự án Quận 4
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/s/quan-7/du-an/mua"
-                                        data-mix-header-click="group: rent, action: select_district_seven_project">
-                                        Dự án Quận 7
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/s/quan-9/du-an/mua"
-                                        data-mix-header-click="group: rent, action: select_district_nine_project">
-                                        Dự án Quận 9
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/s/quan-binh-thanh/du-an/mua"
-                                        data-mix-header-click="group: rent, action: select_district_binhthanh_project">
-                                        Dự án Quận Bình Thạnh
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/chuyen-vien"
-                                        data-mix-header-click="group: rent, action: select_agent_project">Gặp chuyên
-                                        viên tư vấn</a>
-                                </li>
-                                <li>
-                                    <a href="/chu-dau-tu"
-                                        data-mix-header-click="group: rent, action: select_investor_project">Danh mục
-                                        Chủ đầu tư</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a>
-                                <span>Bán & Cho thuê</span>
-                                <i class="zmdi zmdi-chevron-down"></i>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="/ban-nha-voi-rever"
-                                        data-mix-header-click="group: sell_lease, action: select_post_sell_lease">Đăng
-                                        bán</a>
-                                </li>
 
 
-
-                                <li>
-                                    <a href="/chuyen-vien"
-                                        data-mix-header-click="group: sell_lease, action: select_agent_sell_lease">Gặp
-                                        chuyên viên tư vấn</a>
-                                </li>
-                                <li>
-                                    <a href="/rever-photo"
-                                        data-mix-header-click="group: sell_lease, action: select_photo_sell_lease">Rever
-                                        Photo</a>
-                                </li>
-                                <li>
-                                    <a href="/vi-sao-chon-rever"
-                                        data-mix-header-click="group: sell_lease, action: select_pr_sell_lease">Vì sao
-                                        chọn Rever?</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a>
-                                <span>Thông tin</span>
-                                <i class="zmdi zmdi-chevron-down"></i>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="https://blog.rever.vn"
-                                        data-mix-header-click="group: info, action: select_blog_info">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="https://blog.rever.vn/topic/thị-trường"
-                                        data-mix-header-click="group: info, action: select_market_info">Thông tin thị
-                                        trường</a>
-                                </li>
-                                <li>
-                                    <a href="https://blog.rever.vn/topic/phân-tích"
-                                        data-mix-header-click="group: info, action: select_analysis_info">Báo cáo & Phân
-                                        tích</a>
-                                </li>
-                                <li>
-                                    <a href="/huong-dan-mua-nha"
-                                        data-mix-header-click="group: info, action: select_guideline_buy_info">Hướng dẫn
-                                        mua nhà</a>
-                                </li>
-                                <li>
-                                    <a href="/huong-dan-ban-nha"
-                                        data-mix-header-click="group: info, action: select_guideline_sell_info">Hướng
-                                        dẫn bán nhà</a>
-                                </li>
-                                <li>
-                                    <a href="https://offer.rever.vn"
-                                        data-mix-header-click="group: info, action: select_material_info">Tải tài
-                                        liệu</a>
-                                </li>
-
-
-
-                                <li>
-                                    <a target="_blank" href="https://academy.rever.vn"
-                                        data-mix-header-click="group: info, action: select_academy_info">Rever
-                                        Academy</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a id="install-app">
-                                <span>Cài đặt ứng dụng</span>
-                                <i class="zmdi zmdi-smartphone-download"></i>
-                            </a>
-                            <input id="app-mobile-ios" type="hidden"
-                                value="https://itunes.apple.com/vn/app/rever/id1101768201" />
-                            <input id="app-mobile-android" type="hidden"
-                                value="https://play.google.com/store/apps/details?id=com.rever.app.android" />
-                        </li>
                         <li>
                             <a href="tel:1800234546" data-mix-header-click="group: hotline, action: click_hotline">
                                 <span>Hotline: <strong>1800 234 546</strong></span>
@@ -1059,227 +849,7 @@
                             <i class="zmdi zmdi-menu"></i>
                         </a>
                     </li>
-                    <li class="sub-menu">
-                        <a>Mua<i class="zmdi zmdi-chevron-down"></i></a>
-                        <ul>
-                            <li>
-                                <a href="/s/ho-chi-minh/mua"
-                                    data-mix-header-click="group: buy, action: select_all_buy">Tất cả nhà đất bán</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/mua/can-ho"
-                                    data-mix-header-click="group: buy, action: select_apartment_buy">Căn
-                                    hộ</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/mua/shop-house"
-                                    data-mix-header-click="group: buy, action: select_shophouse_buy">Shophouse</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/mua/nha-pho"
-                                    data-mix-header-click="group: buy, action: select_house_buy">Nhà
-                                    phố</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/mua/biet-thu"
-                                    data-mix-header-click="group: buy, action: select_villa_buy">Biệt
-                                    thự</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/mua/dat-nen"
-                                    data-mix-header-click="group: buy, action: select_land_buy">Đất
-                                    nền</a>
-                            </li>
-                            <li class="divide"></li>
-                            <li>
-                                <a href="/chuyen-vien" data-mix-header-click="group: buy, action: select_agent_buy">Gặp
-                                    chuyên viên tư vấn</a>
-                            </li>
-                            <li>
-                                <a href="/khu-dan-cu" data-mix-header-click="group: buy, action: select_zone_buy">Khu
-                                    dân cư</a>
-                            </li>
-                            <li>
-                                <a href="/mua-nha-voi-rever"
-                                    data-mix-header-click="group: buy, action: select_lp_buy">Mua với Rever</a>
-                            </li>
-                            <li>
-                                <a href="/vi-sao-chon-rever"
-                                    data-mix-header-click="group: buy, action: select_pr_buy">Vì sao chọn Rever?</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a>Thuê<i class="zmdi zmdi-chevron-down"></i></a>
-                        <ul>
-                            <li>
-                                <a href="/s/ho-chi-minh/thue"
-                                    data-mix-header-click="group: rent, action: select_all_rent">Tất cả nhà cho thuê</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/thue/can-ho"
-                                    data-mix-header-click="group: rent, action: select_apartment_rent">Căn hộ
-                                    cho thuê</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/thue/shop-house"
-                                    data-mix-header-click="group: rent, action: select_shophouse_rent">Shophouse
-                                    cho thuê</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/thue/nha-pho"
-                                    data-mix-header-click="group: rent, action: select_house_rent">Nhà
-                                    phố cho thuê</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/thue/biet-thu"
-                                    data-mix-header-click="group: rent, action: select_villa_rent">Biệt thự
-                                    cho thuê</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/thue/van-phong"
-                                    data-mix-header-click="group: rent, action: select_office_rent">Văn phòng
-                                    cho thuê</a>
-                            </li>
-                            <li>
-                                <a href="/s/ho-chi-minh/thue/land-business"
-                                    data-mix-header-click="group: rent, action: select_land_rent">Mặt
-                                    bằng cho thuê</a>
-                            </li>
-                            <li class="divide"></li>
-                            <li>
-                                <a href="/chuyen-vien"
-                                    data-mix-header-click="group: rent, action: select_agent_rent">Gặp chuyên viên tư
-                                    vấn</a>
-                            </li>
-                            <li>
-                                <a href="/khu-dan-cu" data-mix-header-click="group: rent, action: select_zone_buy">Khu
-                                    dân cư</a>
-                            </li>
-                            <li>
-                                <a href="/thue-nha-voi-rever"
-                                    data-mix-header-click="group: rent, action: select_lp_rent">Thuê với Rever</a>
-                            </li>
-                            <li>
-                                <a href="/vi-sao-chon-rever"
-                                    data-mix-header-click="group: rent, action: select_pr_rent">Vì sao chọn Rever?</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a>Dự án<i class="zmdi zmdi-chevron-down"></i></a>
-                        <ul>
-                            <li>
-                                <a href="/du-an" data-mix-header-click="group: rent, action: select_all_project">Tất cả
-                                    dự án</a>
-                            </li>
-                            <li>
-                                <a href="/s/quan-2/du-an/mua"
-                                    data-mix-header-click="group: rent, action: select_district_two_project">
-                                    Dự án Quận 2</a>
-                            </li>
-                            <li>
-                                <a href="/s/quan-4/du-an/mua"
-                                    data-mix-header-click="group: rent, action: select_district_four_project">
-                                    Dự án Quận 4</a>
-                            </li>
-                            <li>
-                                <a href="/s/quan-7/du-an/mua"
-                                    data-mix-header-click="group: rent, action: select_district_seven_project">
-                                    Dự án Quận 7
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/s/quan-9/du-an/mua"
-                                    data-mix-header-click="group: rent, action: select_district_nine_project">
-                                    Dự án Quận 9
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/s/quan-binh-thanh/du-an/mua"
-                                    data-mix-header-click="group: rent, action: select_district_binhthanh_project">
-                                    Dự án Quận Bình Thạnh</a>
-                            </li>
-                            <li class="divide"></li>
-                            <li>
-                                <a href="/chuyen-vien"
-                                    data-mix-header-click="group: rent, action: select_agent_project">Gặp chuyên viên tư
-                                    vấn</a>
-                            </li>
-                            <li>
-                                <a href="/chu-dau-tu"
-                                    data-mix-header-click="group: rent, action: select_investor_project">Danh mục Chủ
-                                    đầu tư</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a>Bán & cho thuê<i class="zmdi zmdi-chevron-down"></i></a>
-                        <ul>
-                            <li>
-                                <a href="/ban-nha-voi-rever"
-                                    data-mix-header-click="group: sell_lease, action: select_post_sell_lease">Đăng
-                                    bán</a>
-                            </li>
 
-                            <li class="divide"></li>
-                            <li>
-                                <a href="/chuyen-vien"
-                                    data-mix-header-click="group: sell_lease, action: select_agent_sell_lease">Gặp
-                                    chuyên viên tư vấn</a>
-                            </li>
-                            <li>
-                                <a href="/rever-photo"
-                                    data-mix-header-click="group: sell_lease, action: select_photo_sell_lease">Rever
-                                    Photo</a>
-                            </li>
-                            <li>
-                                <a href="/vi-sao-chon-rever"
-                                    data-mix-header-click="group: sell_lease, action: select_pr_sell_lease">Vì sao chọn
-                                    Rever?</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a>Thông tin<i class="zmdi zmdi-chevron-down"></i></a>
-                        <ul>
-                            <li>
-                                <a href="https://blog.rever.vn"
-                                    data-mix-header-click="group: info, action: select_blog_info">Blog</a>
-                            </li>
-                            <li>
-                                <a href="https://blog.rever.vn/topic/thị-trường"
-                                    data-mix-header-click="group: info, action: select_market_info">Thông tin thị
-                                    trường</a>
-                            </li>
-                            <li>
-                                <a href="https://blog.rever.vn/topic/phân-tích"
-                                    data-mix-header-click="group: info, action: select_analysis_info">Báo cáo & Phân
-                                    tích</a>
-                            </li>
-                            <li>
-                                <a href="/huong-dan-mua-nha"
-                                    data-mix-header-click="group: info, action: select_guideline_buy_info">Hướng dẫn mua
-                                    nhà</a>
-                            </li>
-                            <li>
-                                <a href="/huong-dan-ban-nha"
-                                    data-mix-header-click="group: info, action: select_guideline_sell_info">Hướng dẫn
-                                    bán nhà</a>
-                            </li>
-                            <li>
-                                <a href="https://offer.rever.vn"
-                                    data-mix-header-click="group: info, action: select_material_info">Tải tài liệu</a>
-                            </li>
-
-
-
-                            <li>
-                                <a target="_blank" href="https://academy.rever.vn"
-                                    data-mix-header-click="group: info, action: select_academy_info">Rever Academy</a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
             <div class="login">
@@ -1503,7 +1073,7 @@
                     </div>
                     <div class="box-collapse">
                         <h2 class="heading-02 heading-02__sub">Tiện ích</h2>
-                        <div class="collapse">
+                        <div class="collapse row" style="">
 
                         </div>
                     </div>
@@ -1513,19 +1083,19 @@
                                 <div class="logo">
                                     <img data-src="./JSDemo/WebBDS/Image/NESTATE_LOGO.jpg" class="lazy" alt="Rever">
                                 </div>
-                                <h3 class="title">Vì sao nên mua dự án The Rivus?</h3>
+                                <h3 class="title">Vì sao nên mua dự án The Nestate?</h3>
                                 <div class="content-row">
                                     <ul>
 
 
                                         <li>Chúng tôi luôn đứng về phía Khách Hàng.</li>
                                         <li>Cung cấp miễn phí thông tin thị trường BĐS khu vực.</li>
-                                        <li>Chuyên viên Rever sẵn sàng hỗ trợ 24/7.</li>
+                                        <li>Chuyên viên Nestate sẵn sàng hỗ trợ 24/7.</li>
                                     </ul>
                                 </div>
 
-                                <a style="opacity:0.7" href="javascript:void(0)"
-                                    class="buy-with-rever__cta btn-project-popup-subscribebox">Hỏi thêm thông tin</a>
+                                <!-- <a style="opacity:0.7" href="javascript:void(0)"
+                                    class="buy-with-rever__cta btn-project-popup-subscribebox">Hỏi thêm thông tin</a> -->
                             </div>
                         </div>
                     </div>
@@ -1549,7 +1119,7 @@
                 </div>
                 <div class="sidebar " style="max-width:30%">
                     <div class="sidebar-content">
-                        <h1 class="project__title">The Rivus</h1>
+                        <h1 class="project__title">Nestate</h1>
                         <div class="project__address">
                             <h4><a href="">Long Bình</a></h4>
                             <h4><a href="">Quận 9</a></h4>
@@ -1703,8 +1273,8 @@
 
 
 
-    <script type="deferjs"
-        src="https://s3-cdn.rever.vn/p/v2.42.42/app_v2/login-popup-app.min.js?v=1650377153732"></script>
+    <!-- <script type="deferjs"
+        src="https://s3-cdn.rever.vn/p/v2.42.42/app_v2/login-popup-app.min.js?v=1650377153732"></script> -->
     <style>
         #msform a.butt-primary[disabled] {
             opacity: 0.4
@@ -1896,7 +1466,11 @@
             ip: "10.5.105.199"
         }
     </script>
-   
+    <style>
+        //analytics.rever.vn/fap"],img[src^="/fap/debug/track"] {
+        display: none;
+        }
+    </style>
 
     <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/js/footer-home.js"></script>
 
@@ -1916,13 +1490,13 @@
             </li>
         </ul>
     </div>
-    <div id="project-components">
+    <!-- <div id="project-components">
         <project-contact ref="contact"></project-contact>
         <popup-share-social></popup-share-social>
         <gallery-fullscreen></gallery-fullscreen>
         <popup-project-subscribe-box></popup-project-subscribe-box>
         <dialogs-wrapper wrapper-name="default"></dialogs-wrapper>
-    </div>
+    </div> -->
     <script type="deferjs">
   (function () {
     var formQueue = [];
@@ -2208,6 +1782,27 @@
         }
         window.UserIp = "14.250.213.102"
     </script>
+    <!-- show-swiper -->
+    <script type="text/javascript">
+        let swiper = new Swiper(".mySwiper", {
+            spaceBetween: 50,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+
+
+        let swiper2 = new Swiper(".mySwiper2", {
+            direction: "vertical",
+            spaceBetween: 50,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+
     <script type="deferjs"
         src="https://s3-cdn.rever.vn/p/v2.42.42/js/jquery.flexslider.jfix-0.0.1.min.js?v=1650377153732"></script>
     <script type="deferjs" src="https://s3-cdn.rever.vn/p/v2.42.42/js/vendor/ion-slider/ion.rangeSlider.js"></script>
@@ -2216,11 +1811,11 @@
     <script type="deferjs" src="https://s3-cdn.rever.vn/p/import/external.js?v=1650377153732"></script>
     <script type="deferjs" src="https://s3-cdn.rever.vn/p/import/tracking.min.js?v=1650377153732"></script>
     <script type="text/javascript">
-            (function (c, l, a, r, i, t, y) {
-                c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-                t = l.createElement(r); t.async = 1; t.defer = 1; t.src = "https://www.clarity.ms/tag/" + i;
-                y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-            })(window, document, "clarity", "script", "3y09hfteky");
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.defer = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "3y09hfteky");
     </script>
     <script type="deferjs">
     window.ga && ga('send', 'event', 'ProjectCTABetaTest', 'Display', 'Default');
@@ -2270,7 +1865,11 @@
                 "name":"Masterise Homes"
             }
         }
+
+        
     </script>
+
+
     <script defer
         src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"
         integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw=="
