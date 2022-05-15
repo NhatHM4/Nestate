@@ -30,8 +30,8 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public String loginPost(@ModelAttribute("admin") Admin admin, Model model) {
-		 if (checkExistsAdmin(admin)!=null) {
-			 return "redirect:/management";
+		 if (checkExistsAdmin(admin)!=null) {	 
+			 return "redirect:/addProductDetail";
 		 }
 		model.addAttribute("message", "Sai tài khoản hoặc mật khẩu");
 		return "Management/Admin/login";

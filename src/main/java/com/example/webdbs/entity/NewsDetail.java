@@ -6,7 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "NewsDetail")
 public class NewsDetail extends BaseEntity{
@@ -50,5 +62,6 @@ public class NewsDetail extends BaseEntity{
 	@PrimaryKeyJoinColumn
 	private ImageNewsDetail image;
 	
-
+	@Transient
+	private MultipartFile file;
 }

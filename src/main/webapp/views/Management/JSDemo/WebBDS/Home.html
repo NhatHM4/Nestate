@@ -1,97 +1,114 @@
 <!DOCTYPE html>
-<!--[if IE]><![endif]-->
-<!--[if lt IE 7 ]> <html lang="en" class="ie6">    <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7">    <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8">    <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9">    <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html class="no-js" lang="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{base.html}">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Duy Tai | Nesta</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Trang chủ | Nesta</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- Favicon
+<!-- Favicon
 		============================================ -->
-	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
-	<!-- Fonts
+<!-- Fonts
 		============================================ -->
-	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'
-		type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'
+	rel='stylesheet' type='text/css'>
 
-	<!-- CSS  -->
+<!-- CSS  -->
 
-	<!-- Bootstrap CSS
+<!-- Bootstrap CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/bootstrap.min.css">
-
-	<!-- owl.carousel CSS
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/bootstrap.min.css}>
+<!-- Loc CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/owl.carousel.css">
-
-	<!-- owl.theme CSS
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/cssLoc.css}>
+<!-- owl.carousel CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/owl.theme.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/owl.carousel.css}>
 
-	<!-- owl.transitions CSS
+<!-- owl.theme CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/owl.transitions.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/owl.theme.css}>
 
-	<!-- font-awesome.min CSS
+<!-- owl.transitions CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/font-awesome.min.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/owl.transitions.css}>
 
-	<!-- font-icon CSS
+<!-- font-awesome.min CSS
 		============================================ -->
-	<link rel="stylesheet" href="fonts/font-icon.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/font-awesome.min.css}>
 
-	<!-- jquery-ui CSS
+<!-- font-icon CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/jquery-ui.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/fonts/font-icon.css}>
 
-	<!-- mobile menu CSS
+<!-- jquery-ui CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/meanmenu.min.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/jquery-ui.css}>
 
-	<!-- Nhat  CSS
+<!-- mobile menu CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/styleNhat.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/meanmenu.min.css}>
 
-	<!-- Nhat  CSS
+<!-- Nhat  CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/pollbar.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/styleNhat.css}>
 
-	<!-- nivo slider CSS
+<!-- Nhat  CSS
 		============================================ -->
-	<!-- <link rel="stylesheet" href="custom-slider/css/nivo-slider.css" type="text/css" />
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/pollbar.css}>
+
+<!-- nivo slider CSS
+		============================================ -->
+<!-- <link rel="stylesheet" href="custom-slider/css/nivo-slider.css" type="text/css" />
 		<link rel="stylesheet" href="custom-slider/css/preview.css" type="text/css" media="screen" /> -->
 
-	<!-- animate CSS
+<!-- animate CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/animate.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/animate.css}>
 
-	<!-- normalize CSS
+<!-- normalize CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/normalize.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/normalize.css}>
 
-	<!-- main CSS
+<!-- main CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/main.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/main.css}>
 
-	<!-- style CSS
+<!-- style CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/style.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/style.css}>
 
-	<!-- responsive CSS
+<!-- responsive CSS
 		============================================ -->
-	<link rel="stylesheet" href="CSS/responsive.css">
+<link rel="stylesheet"
+	th:href=@{/views/Management/JSDemo/WebBDS/CSS/responsive.css}>
 
-	<script src="CSS/vendor/modernizr-2.8.3.min.js"></script>
+<script
+	th:src=@{/views/Management/JSDemo/WebBDS/JS/vendor/modernizr-2.8.3.min.js}></script>
 </head>
 
 <body class="home-one">
@@ -104,600 +121,769 @@
 	<header class="short-stor">
 		<div class="container-fluid ">
 			<div class="row">
-
 				<div class="col-md-12 text-center">
 					<div class="mainmenu">
 						<nav>
 							<ul>
-								<li class="expand"><a href="#"><img src="Image/A1 2.jpg" alt=""><img
-											src="Image/Chúng tôi icon.jpg" alt=""></a>
-								</li>
-								<li class="expand"><a href="http://127.0.0.1:5501/product.html"
-										style="font-size: 17px;"><img src="" alt="">
-										Tất cả sản phẩm
-									</a>
-								</li>
-
-								<li class="expand"><a href="http://127.0.0.1:5501/web%20demo/story.html"><img
-											src="Image/STORYIcon.jpg" alt=""></a>
-								</li>
-								<li class="expand"><a href="http://127.0.0.1:5501/web%20demo/story.html"><img
-											src="Image/NESTATE_LOGO.jpg" alt=""></a>
-								</li>
-								<li class="expand"><a href="#"><img src="Image/ThiTruongIcon.jpg" alt=""></a>
-								</li>
-								<li class="expand"><a href="#"><img src="Image/TuyenDungIcon.jpg" alt=""></a>
-								</li>
-								<li class="expand"><a href="#"><img src="Image/searchicon.jpg" alt=""></a>
-								</li>
+								<li class="expand"><a href="#" data-toggle="modal"
+									data-target="#exampleModalLong"><img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/A12.jpg} alt=""><img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/chungtoi.jpg}
+										alt=""></a></li>
+								<li class="expand"><a
+									href="http://127.0.0.1:5501/web%20demo/story.html"><img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/STORYIcon.jpg}
+										alt=""></a></li>
+								<li class="expand"><a
+									href="http://127.0.0.1:5501/web%20demo/story.html"><img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/NESTATE_LOGO.jpg}
+										alt=""></a></li>
+								<li class="expand"><a
+									href="http://127.0.0.1:5501/product.html"><img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/ThiTruongIcon.jpg}
+										alt=""></a></li>
+								<li class="expand"><a href="#"><img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/TuyenDungIcon.jpg}
+										alt=""></a></li>
+								<li class="expand"><a href="#"><img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/searchicon.jpg}
+										alt=""></a></li>
 							</ul>
 						</nav>
 					</div>
-					<!-- mobile menu start -->
 					<div class="row text-center">
 						<div class="col-sm-12 mobile-menu-area">
 							<div class="mobile-menu hidden-md hidden-lg" id="mob-menu">
-								<span class="mobile-menu-title">Duy Tai | Nestate</span>
+								<span class="mobile-menu-title">Trang chủ | Nestate</span>
 								<nav>
 									<ul>
-										<li><a href="">Chúng tôi</a>
-										</li>
-										<li><a href="http://127.0.0.1:5501/product.html">Tất cả sản phẩm</a>
-										</li>
+										<li><a href="" data-toggle="modal"
+											data-target="#exampleModalLong">Chúng tôi</a></li>
 										<li><a href="http://127.0.0.1:5501/web%20demo/story.html">Story</a>
 										</li>
-										<li><a href="">Nestate</a>
-
+										<li><a href="http://127.0.0.1:5501/web%20demo/story.html">Nestate</a>
 										</li>
-										<li><a href="">Thị trường</a>
-										</li>
-										<li><a href="">Tuyển dụng</a>
-										</li>
+										<li><a href="">Thị trường</a></li>
+										<li><a href="">Tuyển dụng</a></li>
 									</ul>
 								</nav>
 							</div>
 						</div>
 					</div>
-					<!-- mobile menu end -->
 				</div>
-				<!-- mainmenu area end -->
-				<!-- top details area start -->
-				<!-- top details area end -->
 			</div>
 		</div>
 	</header>
-	<!-- header area end -->
-	<!-- start home slider -->
-
-	<!-- end home slider -->
-	<!-- product section start -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalLong" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLongTitle"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">Năm 2015, CEO Lê Thị Ánh khai trương
+					cửa hàng lớn tại số 37, Shop House Picenza, phường Đông Bẩm, thành
+					phố Thái Nguyên. Hiện doanh nghiệp của Anh có 700 nhân viên, gần
+					250 đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là trở
+					thành một trong những thương hiệu thời trang uy tín, cung cấp các
+					sản phẩm từ các thương hiệu nổi tiếng đến tay khách hàng Việt,… Năm
+					2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại số 37, Shop House
+					Picenza, phường Đông Bẩm, thành phố Thái Nguyên. Hiện doanh nghiệp
+					của Anh có 700 nhân viên, gần 250 đơn vị phân phối trên toàn quốc.
+					Mục tiêu của Lêthi- ST là trở thành một trong những thương hiệu
+					thời trang uy tín, cung cấp các sản phẩm từ các thương hiệu nổi
+					tiếng đến tay khách hàng Việt,…</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="our-product-area">
 		<div class="container-fluid">
-			<!-- area title start -->
 			<div class="row text-center">
-				<div class="col-md-12" style=" position: relative;">
-					<img src="Image/Chuyendongthitruong.jpg" id="img-thitruong" alt="">
-					<div style="position: absolute;top:50%;left: 50%">
-						<a href="https://google.com.vn">
-							<p style="font-size: 300%;color: white;">Chuyển động thị trường</p>
+				<div class="col-md-12" style="position: relative;">
+					<img
+						th:src=@{/views/Management/JSDemo/WebBDS/Image/Chuyendongthitruong.jpg}
+						id="img-thitruong" alt="">
+					<div style="position: absolute; top: 50%; left: 50%">
+						<a href="http://127.0.0.1:5501/product.html">
+							<p style="font-size: 300%; color: white;">Chuyển động thị
+								trường</p>
 						</a>
 					</div>
 				</div>
 			</div>
-			<div class="row text-center" style="margin : 1rem 0 1rem 0;">
-				<div class="col-md-2">
-				</div>
+			<div class="row text-center" style="margin: 1rem 0 1rem 0;">
+				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="row">
 						<div class="col-md-4 margin-3 ">
-							<img src="Image/CeoImage.jpg" alt="">
+							<img th:src=@{/views/Management/JSDemo/WebBDS/Image/CeoImage.jpg}
+								alt="">
 						</div>
 						<div class="col-md-8 text-left">
-							<p style="font-size: 2rem;padding-top: 2rem;"> Thư từ CEO Nestate</p>
-							<p style="font-weight: bold;font-size: 2rem;">Ông Hồ Quốc Hiếu</p>
+							<p style="font-size: 2rem; padding-top: 2rem;">Thư từ CEO
+								Nestate</p>
+							<p style="font-weight: bold; font-size: 2rem;">Ông Hồ Quốc
+								Hiếu</p>
 							<br>
-							<div style="overflow-y: scroll; height: 26rem;" id="thuTu-CEO">
-								<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại số 37,
-									Shop House Picenza, phường Đông Bẩm, thành phố Thái Nguyên. Hiện doanh nghiệp của
-									Anh có
-									700 nhân viên, gần 250 đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
-									trở
-									thành một trong những thương hiệu thời trang uy tín, cung cấp các sản phẩm từ các
-									thương
-									hiệu nổi tiếng đến tay khách hàng Việt,…</p>
-								<br>
-								<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại số 37,
-									Shop House Picenza, phường Đông Bẩm, thành phố Thái Nguyên. Hiện doanh nghiệp của
-									Anh có
-									700 nhân viên, gần 250 đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
-									trở
-									thành một trong những thương hiệu thời trang uy tín, cung cấp các sản phẩm từ các
-									thương
-									hiệu nổi tiếng đến tay khách hàng Việt,…</p>
-								<br>
-								<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại số 37,
-									Shop House Picenza, phường Đông Bẩm, thành phố Thái Nguyên. Hiện doanh nghiệp của
-									Anh có
-									700 nhân viên, gần 250 đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
-									trở
-									thành một trong những thương hiệu thời trang uy tín, cung cấp các sản phẩm từ các
-									thương
-									hiệu nổi tiếng đến tay khách hàng Việt,…</p>
-								<br>
-								<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại số 37,
-									Shop House Picenza, phường Đông Bẩm, thành phố Thái Nguyên. Hiện doanh nghiệp của
-									Anh có
-									700 nhân viên, gần 250 đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
-									trở
-									thành một trong những thương hiệu thời trang uy tín, cung cấp các sản phẩm từ các
-									thương
-									hiệu nổi tiếng đến tay khách hàng Việt,…</p><br>
-								<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại số 37,
-									Shop House Picenza, phường Đông Bẩm, thành phố Thái Nguyên. Hiện doanh nghiệp của
-									Anh có
-									700 nhân viên, gần 250 đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
-									trở
-									thành một trong những thương hiệu thời trang uy tín, cung cấp các sản phẩm từ các
-									thương
-									hiệu nổi tiếng đến tay khách hàng Việt,…</p>
+							<div class="scrollbar" id="style-1">
+								<div class="force-overflow">
+									<div>
+										<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại
+											số 37, Shop House Picenza, phường Đông Bẩm, thành phố Thái
+											Nguyên. Hiện doanh nghiệp của Anh có 700 nhân viên, gần 250
+											đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
+											trở thành một trong những thương hiệu thời trang uy tín, cung
+											cấp các sản phẩm từ các thương hiệu nổi tiếng đến tay khách
+											hàng Việt,…</p>
+										<br>
+										<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại
+											số 37, Shop House Picenza, phường Đông Bẩm, thành phố Thái
+											Nguyên. Hiện doanh nghiệp của Anh có 700 nhân viên, gần 250
+											đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
+											trở thành một trong những thương hiệu thời trang uy tín, cung
+											cấp các sản phẩm từ các thương hiệu nổi tiếng đến tay khách
+											hàng Việt,…</p>
+										<br>
+										<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại
+											số 37, Shop House Picenza, phường Đông Bẩm, thành phố Thái
+											Nguyên. Hiện doanh nghiệp của Anh có 700 nhân viên, gần 250
+											đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
+											trở thành một trong những thương hiệu thời trang uy tín, cung
+											cấp các sản phẩm từ các thương hiệu nổi tiếng đến tay khách
+											hàng Việt,…</p>
+										<br>
+										<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại
+											số 37, Shop House Picenza, phường Đông Bẩm, thành phố Thái
+											Nguyên. Hiện doanh nghiệp của Anh có 700 nhân viên, gần 250
+											đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
+											trở thành một trong những thương hiệu thời trang uy tín, cung
+											cấp các sản phẩm từ các thương hiệu nổi tiếng đến tay khách
+											hàng Việt,…</p>
+										<br>
+										<p>Năm 2015, CEO Lê Thị Ánh khai trương cửa hàng lớn tại
+											số 37, Shop House Picenza, phường Đông Bẩm, thành phố Thái
+											Nguyên. Hiện doanh nghiệp của Anh có 700 nhân viên, gần 250
+											đơn vị phân phối trên toàn quốc. Mục tiêu của Lêthi- ST là
+											trở thành một trong những thương hiệu thời trang uy tín, cung
+											cấp các sản phẩm từ các thương hiệu nổi tiếng đến tay khách
+											hàng Việt,…</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
-				</div>
+				<div class="col-md-2"></div>
 			</div>
 		</div>
 	</div>
 	</div>
-
-	<div class="latest-post-area">
+	<div class="container-fluid" style="background-color: #EEEEEE;">
+		<div class="row" style="position: relative;">
+			<div class="all-singlepost">
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="single-post">
+						<div class="post-thumb" style="width: 100%">
+							<div class="row" style="padding: 20px; text-align: center">
+								<div class="col-12">
+									<img style="border-radius: 10px 10px 0 0;"
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/headerMagazine.jpg}
+										alt="">
+								</div>
+								<div class="col-12">
+									<img style="border-radius: 0 0 10px 10px;"
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/magazineImage.jpg}
+										alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="viText">
+						VI<span class="ewsText">EWS</span>
+					</p>
+					<div class="row" style="margin-top: -5%; margin-left: 5%;">
+						<div class="col-lg-12 col-md-6 col-sm-6 col-xs-12 magazine">
+							<p>MAGAZINE</p>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 5px; margin-left: 15%;">
+						<div
+							class="col-lg-4 col-md-6 col-sm-6 col-xs-12 hanhTrinhThuongHieu">
+							<p>Hành trình kiến tạo thương hiệu Nesate</p>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 more">
+							<a href="#" style="font-weight: bold;">More</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 "
+							style="margin-top: -2%;">
+							<p class="nestateText">N E S T A T E</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="single-post">
+						<div class="post-thumb">
+							<div class="row" style="padding: 20px; text-align: center;">
+								<div class="col-12"
+									style="background-color: #9E9A9A; border-radius: 10px 10px 0 0;">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<p
+												style="color: #F5D105; font-size: 2rem; font-weight: 500; margin-bottom: 10%;">
+												Popcast’s <span style="font-weight: 100;">N E S T A T
+													E</span>
+											</p>
+										</div>
+									</div>
+									<img style="width: 100%;"
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/anh.jpg} alt="">
+									<!-- <img src=@{./views/Management/JSDemo/WebBDS/Image/anhbia.png} alt="" style="width: 100%;"> -->
+								</div>
+								<div class="col-12" style="margin-top: 2%;">
+									<audio controls style="width: 90%">
+										<source
+											src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+											type="audio/ogg">
+									</audio>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="container-fluid">
-			<div class="row">
-				<div class="all-singlepost">
-					<!-- single latestpost start -->
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<div class="single-post">
-							<div class="post-thumb" style="width:100%">
-								<div class="row" style="padding: 20px;text-align:center">
-									<div class="col-12">
-										<img style="border-radius: 10px 10px 0 0;" src="Image/headerMagazine.jpg"
+			<div class="row"
+				style="position: relative; background-color: #FFFFFF;">
+				<div class="col-md-6 col-sm-6 col-xs-12 qrImage">
+					<img
+						th:src=@{/views/Management/JSDemo/WebBDS/Image/QRCodeImage.jpg}
+						alt="" style="width: 70%; height: 70%;">
+				</div>
+				<div class="col-md-5 col-sm-5 col-xs-12 qrText">
+					<div class="post-thumb qrBackground">
+						<p class="moiQuyVi">MỜI QUÝ VỊ</p>
+						<p class="quetMaQR">QUÉT MÃ QR</p>
+						<p class="text-white">Để xác nhận tham gia ra mắt thương hiệu
+							Nestate</p>
+						<p
+							style="font-size: 14px; color: #FFFFFF; padding-right: 50px; font-weight: lighter;">Với
+							mong muốn giúp khách hàng có cảm nhận chân thực nhất về căn hộ
+							tương lai, ngày 07/11 tới đây, chủ đầu tư HDMon Holdings sẽ tổ
+							chức Lễ ra mắt</p>
+						<p class="quetMaQRBold">QUÉT MÃ QR</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" style="margin-top: 1rem;">
+			<div class="row" style="position: relative;">
+				<div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;">
+					<img style="border-radius: 5px;"
+						th:src=@{/views/Management/JSDemo/WebBDS/Image/ChuTichTranTrongKien.jpg}
+						alt="">
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;">
+
+					<img style="border-radius: 5px;"
+						th:src=@{/views/Management/JSDemo/WebBDS/Image/ChuTichTranTrongKien.jpg}
+						alt="">
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;">
+					<img style="border-radius: 5px;"
+						th:src=@{/views/Management/JSDemo/WebBDS/Image/ChuTichTranTrongKien.jpg}
+						alt="">
+				</div>
+				<div class=""
+					style="margin-top: 1rem; background-color: #FFFFFF; height: 450px; width: 14%; position: absolute;">
+					<div style="position: relative;">
+						<div class="row" style="padding-left: 10%;">
+							<div class="col-lg-12 col-md-4 col-sm-4 col-xs-12"
+								style="padding-top: 75%;">
+								<p class="newsUpdateText">Cập nhật tin tức</p>
+							</div>
+						</div>
+						<div class="row" style="padding-left: 10%;">
+							<div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+								<div class="row">
+									<div class="col-lg-7 col-md-4 col-sm-4 col-xs-12"
+										style="padding: 0">
+										<img
+											th:src=@{/views/Management/JSDemo/WebBDS/Image/Rectangle139.png}
+											alt="">
+									</div>
+									<div class="col-lg-5 col-md-4 col-sm-4 col-xs-12"
+										style="padding-left: 2px">
+										<p class="newsUpdateText">chuyển động</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="padding: 0 0 0 10%;">
+							<div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+								<p class="thiTruongText">THỊ TRƯỜNG</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row " style="margin-top: 1rem">
+				<div class="col-md-10 col-sm-10 col-xs-12"></div>
+				<div class="col-md-2 col-sm-2 col-xs-12 ">
+					<div id="FullView">
+						<a href="" style="color: rgb(255, 255, 255);">FULL VIEW</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" style="margin-top: 1rem;">
+			<div class="row" style="position: relative;">
+				<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+					<p style="font-size: 5rem; font-weight: bolder; color: #F5D105;">FACE
+						OF</p>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+					<p style="font-size: 4rem; font-weight: lighter;">MONTH</p>
+				</div>
+				<div class="row" style="position: relative;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<img
+							th:src=@{/views/Management/JSDemo/WebBDS/Image/DangTramImage.jpg}
+							alt="">
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chanDungPost">
+						<div class="chanDung">
+							<p class="chanDungText">Bài chân dung Stylist Đặng Trầm: Đời
+								THAY ĐỔI khi ta THAY ĐỔI</p>
+							<div class="line-base"></div>
+							<div class="row faceView">
+								<div
+									class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center fullView">
+									<a href="" style="color: #DDDCDC !important">FULL VIEW</a>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									<p style="padding-top: 2%">
+										<a href="" style="color: #F5D105;; font-size: 1rem;">FACE
+											OF MONTH</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="all-singlepost " style="margin-top: 2rem;">
+					<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<div class="single-post recruit">
+							<div class="row ">
+								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"
+									style="margin-top: 1rem;">
+									<img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/NESTATE_LOGO_FINAL15.png}
+										alt="">
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"
+									style="margin-top: 1rem;"></div>
+								<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 "
+									style="margin-top: 2rem; display: flex !important; justify-content: space-around; font-size: 2rem;">
+									<a href="#" class="bar1">TUYỂN DỤNG</a>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 1rem; padding: 20px">
+								<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+									<div class="postexcerpt">
+										<img th:src=@{/views/Management/JSDemo/WebBDS/Image/nvgh.png}
 											alt="">
 									</div>
 									<div class="col-12">
-										<img style="border-radius: 0 0 10px 10px;" src="Image/magazineImage.jpg" alt="">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- single latestpost end -->
-					<!-- single latestpost start -->
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<div class="single-post">
-							<div class="post-thumb">
-								<div class="row" style="padding: 20px;text-align:center">
-									<div class="col-12">
-										<img src="Image/Rectangle 141.jpg" alt="">
-									</div>
-									<div class="col-12">
-										<audio controls>
-											<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-												type="audio/ogg">
-
-
-										</audio>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container-fluid text-center">
-			<div class="row">
-				<div class="col-12 relative">
-					<div class="relative">
-						<img src="Image/QRCodeFB.png" alt="" style="width:10rem;border-radius: 10%;">
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<div class="latest-post-area">
-			<div class="container-fluid" style="margin-top: 1rem;">
-				<div class="row">
-					<div class="all-singlepost">
-						<!-- single latestpost start -->
-						<div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;">
-							<div class="single-post">
-								<div class="postexcerpt">
-									<img style="border-radius: 5px;" src="Image/ChuTichTranTrongKien.jpg" alt="">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;">
-							<div class="single-post">
-								<div class="postexcerpt">
-									<img style="border-radius: 5px;" src="Image/ChuTichTranTrongKien.jpg" alt="">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;">
-							<div class="single-post">
-								<div class="postexcerpt">
-									<img style="border-radius: 5px;" src="Image/ChuTichTranTrongKien.jpg" alt="">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row " style="margin-top:1rem">
-					<div class="col-md-10 col-sm-10 col-xs-12">
-					</div>
-					<div class="col-md-2 col-sm-2 col-xs-12 ">
-						<div id="FullView">
-							<a href="" style="color: rgb(255, 255, 255);">FULL VIEW</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- FOOTER END -->
-
-			<!-- JS -->
-		</div>
-		<div class="latest-post-area">
-			<div class="container" style="margin-top: 1rem;">
-				<div class="row">
-					<div class="all-singlepost">
-						<!-- single latestpost start -->
-						<div class="col-lg-4 col-md-3 col-sm-6 col-xs-12" style="margin-top: 1rem;">
-							<div class="single-post">
-								<div class="postexcerpt">
-									<p style="font-size: 5rem;font-weight: bolder;color: orange;">FACE OF</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12" style="margin-top: 1rem;">
-							<div class="single-post">
-								<div class="row">
-									<div class="postexcerpt">
-										<p style="font-size: 4rem;font-weight:lighter;">MONTH</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="all-singlepost">
-						<!-- single latestpost start -->
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 2rem;">
-							<div class="single-post">
-								<div class="postexcerpt">
-									<img src="Image/DangTramImage.jpg" alt="">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--  tuyen dung -->
-				<div class="row ">
-					<div class="all-singlepost " style="margin-top: 2rem;">
-						<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-						</div>
-						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-							<div class="single-post recruit">
-								<div class="row ">
-									<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="margin-top: 1rem;">
-										<img src="Image/NESTATE_LOGO_FINAL 15.png" alt="">
-									</div>
-									<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="margin-top: 1rem;">
-									</div>
-									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 "
-										style="margin-top: 2rem; display: flex !important; justify-content: space-around;">
-										<a href="#" class="bar1">NỘP CV</a>
-										<a href="#" class="bar1">VỊ TRÍ TUYỂN DỤNG</a>
-										<a href="#" class="bar1">AI SẼ PHỎNG VẤN BẠN</a>
-										<a href="#" class="bar1">SPOTLIGHT OF NESTATE</a>
-									</div>
-								</div>
-								<div class="row" style="margin-top: 1rem; padding:20px">
-									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-										<div class="postexcerpt">
-											<img src="Image/nvgh.png" alt="">
-										</div>
-										<div class="col-12">
-											<div class="row"
-												style="background-color:  rgb(64,64,64); margin-right:0px; margin-left:0px">
-												<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"
-													style="margin-top: 1rem;">
-
-													<h3 class="text-employee">NHÂN VIÊN KINH DOANH</h3>
-													<h5 class="text-job">LÀM VIỆC TẠI ĐÀ NẴNG</h5>
-													<p class="text-content">Nhân viên thử việc được training bởi các
-														chuyên gia, trưởng phòng,..-những người có kinh nghiệm trong
-														lĩnh vực. Đồng thời gđược nhận bộ thử thách Nestate với loạt
-														chương trình chào đón đặc biệt</p>
-													<a href="" class="link-detail">Chi tiết</a>
-												</div>
-												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"
-													style="margin-top: -0.5rem;">
-													<h2 class="text-employee-candidate">ĐANG TUYỂN</h2>
-													<div class="row">
-														<div class="col-12">
-															<div class="line gray"></div>
-														</div>
-														<div class="col-12">
-															<div class="line"></div>
-														</div>
+										<div class="row"
+											style="background-color: rgb(64, 64, 64); margin-right: 0px; margin-left: 0px">
+											<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"
+												style="margin-top: 1rem;">
+												<h3 class="text-employee">NHÂN VIÊN KINH DOANH</h3>
+												<h5 class="text-job">LÀM VIỆC TẠI ĐÀ NẴNG</h5>
+												<p class="text-content">Nhân viên thử việc được training
+													bởi các chuyên gia, trưởng phòng,..-những người có kinh
+													nghiệm trong lĩnh vực. Đồng thời gđược nhận bộ thử thách
+													Nestate với loạt chương trình chào đón đặc biệt</p>
+												<a href="" class="link-detail">Chi tiết</a>
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"
+												style="margin-top: -0.5rem;">
+												<h2 class="text-employee-candidate">ĐANG TUYỂN</h2>
+												<div class="row">
+													<div class="col-12">
+														<div class="line gray"></div>
+													</div>
+													<div class="col-12">
+														<div class="line"></div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-										<div id="main">
-											<div class="row">
-												<div class="row-bar rotate">
-
-													<p class="perc" id="bar1perc">0%</p>
-
-													<div id="Cont">
-														<div class="bar" id="bar1">
-
-														</div>
-
-														<div class="bar" id="bar2">
-
-														</div>
-													</div>
-
-													<p class="perc" id="bar2perc">0%</p>
-
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="row-bar">
-													<button class="options" id="option1" style="color: black;">
-														Chế độ
-													</button>
-
-													<button class="options" id="option2" style="color: black;">
-														Môi trường
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-
 								</div>
-							</div>
-						</div>
-						<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-						</div>
-					</div>
-				</div>
-				<div class="row" style="margin-top: 2rem; position: relative;">
-					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-						<img src="Image/duan.png" class="blur-img" alt="">
-						<div class="marina-complex">
-							<p class="content-marina">Marina Complex Da Nang được mệnh danh là dự án khởi đầu cho xu
-								hướng <br>
-								sống mới của giới thượng lưu với trải nghiệm "thuần khiết" ven sông Hàn <br>
-								<a style="color: blue;font-size: smaller;" href="">Dân trí: "Dự án Marina là một trong
-									những dự án đáng sở hữu nhất 2020"</a>
-							</p>
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-						<h1 class="marina">MARINA COMPLEX</h1>
-					</div>
-
-				</div>
-				<div class="row"
-					style="margin-top: 1rem; background-color: rgb(248, 223, 83); padding-top: 1.95rem; margin-left: 0; margin-right: 0;">
-					<div class="col-12">
-						<div class="row">
-							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"></div>
-							<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-								<img src="Image/03 5.png" alt="" style="box-shadow:4rem -2rem rgb(223, 200, 75)">
-							</div>
-							<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-								<h3 class="content-office">Văn phòng công ty đẹp với phối màu độc đáo</h3>
-								<p class="content-main">Văn phòng tại Microsoft Việt Nam lấy tông màu xanh lá làm chủ
-									đạo.
-									Bên cạnh đó không gian tại đây được thiết kế linh hoạt với nhiều mảng
-									màu đặc trưng khác nhau. Phong cách bài trí được đồng độ với giao diện icon của
-									Microsoft gồm
-									4 màu đỏ, xanh lá, vàng, xanh da trời
-
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-								<img src="Image/nestate.png" alt="">
-								<div class="row">
-									<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
-									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-										<p class="content-main">Văn phòng tại Microsoft Việt Nam lấy tông màu xanh lá
-											làm chủ đạo.
-											Bên cạnh đó không gian tại đây được thiết kế linh hoạt với nhiều mảng
-											màu đặc trưng khác nhau. Phong cách bài trí được đồng độ với giao diện icon
-											của Microsoft gồm
-											4 màu đỏ, xanh lá, vàng, xanh da trời
-										</p>
-										<h3 class="content-office" style="padding: 0;">Văn phòng công ty đẹp với phối
-											màu độc đáo</h3>
-									</div>
-
-								</div>
-							</div>
-							<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-								<img src="Image/03 5.png" class="image-scale-small" alt=""
-									style="box-shadow:4rem -2rem rgb(223, 200, 75)" ;>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Realtime -->
-				<div class="row" style="margin-top: 1rem ;">
-
-				</div>
-				<div class="row real-time">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="background">
-							<img src="Image/background.png" style="width: 100%;" alt="">
-							<div class="profile">
-
-								<div class="row">
-									<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-										<img src="Image/1c1d56fef4e27f335a3617b2af444202 4.png"
-											style="width: 100%;height: 19.5rem" alt="">
-									</div>
-									<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+									<div id="main">
 										<div class="row">
-											<p class="realtime-content"> Chuyên viên Bất động sản Đức Thắng <br> 'Luôn
-												luôn khiêm tốn và làm thật tốt công việc của mình'</p>
-											<p style="font-size: small;">Chàng trai trẻ 8x Đức Thắng sinh ra ở miền quê
-												nghèo thuộc <br> huyện Yên Sơn, tỉnh Tuyên Quang và gia đình vẫn không
-												mấy <br> khá giả.
-												Học xong cấp 3, Đức Thắng thi đậu vào trường...</p>
-											<a href="" class="profile-ceo">PROFILE</a> | <p class="realtime-content"> GĐ
-												Dự án Nestate</p>
-										</div>
-										<div class="row" style="margin-top: 1rem;">
-											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-												<img src="Image/1c1d56fef4e27f335a3617b2af444202 5.png"
-													style="width: 100%;height: 10rem;" alt="">
+											<div class="row-bar rotate">
+												<div id="Cont">
+													<div class="bar" id="bar1">
+														<div>
+															<button class="options" id="option1">Chế độ</button>
+														</div>
+														<div>
+															<p class="cheDoText" id="bar1perc">0%</p>
+														</div>
+													</div>
+													<div class="bar" id="bar2">
+														<p class="moiTruongText" id="bar2perc">0%</p>
+														<button class="options" id="option2">Môi trường</button>
+													</div>
+												</div>
 											</div>
-											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-												<img src="Image/1c1d56fef4e27f335a3617b2af444202 5.png"
-													style="width: 100%;height: 10rem;" alt="">
+											<div>
+												<p class="text-Vote">*Bảng Vote góp phần thúc đẩy sự
+													thấu hiểu giữa công ty và ứng viên.</p>
 											</div>
 										</div>
 									</div>
 								</div>
-
-
 							</div>
 						</div>
-
 					</div>
-
+					<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
 				</div>
-				<div class="row" style="background-color: rgb(255, 255, 255); margin-left: 0; margin-right: 0;">
-					<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
-					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-						<img src="Image/anh.png" alt="">
-					</div>
-					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-						<img src="Image/anh.png" alt="">
-					</div>
-					<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -5rem;">
-						<img src="Image/Rectangle 170.png" alt="">
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<img src="Image/doitac.png" alt="" style="width: 100%;">
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="footer">
-							<img src="Image/Untitled-1 4.png" alt="">
-							<div class="feedback">
-								<p>Quản trị bởi Phòng Marketing</p>
-								<a href="" class="profile-ceo">LIÊN HỆ</a>
-								<a href="" class="profile-ceo">GÓP Ý</a>
+			</div>
+		</div>
+		<div style="margin-top: 3rem; background-color: #FFFFFF;">
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="item active">
+						<div class="row" style="margin-top: 2rem; position: relative;">
+							<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/duan.png}
+									class="blur-img" alt="" style="width: 80%;">
+								<div class="marina-complex">
+									<p class="content-marina">
+										Marina Complex Da Nang được mệnh danh là dự án khởi đầu cho xu
+										hướng <br> sống mới của giới thượng lưu với trải nghiệm
+										"thuần khiết" ven sông Hàn <br> <a
+											style="color: blue; font-size: smaller;" href="">Dân trí:
+											"Dự án Marina là một trong những dự án đáng sở hữu nhất 2020"</a>
+									</p>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"
+								style="position: absolute; top: 16%; right: 27%;">
+								<h1 class="marina">MARINA COMPLEX</h1>
 							</div>
 						</div>
-
 					</div>
-					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-
+					<div class="item">
+						<div class="row" style="margin-top: 2rem; position: relative;">
+							<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/duan.png}
+									class="blur-img" alt="" style="width: 80%;">
+								<div class="marina-complex">
+									<p class="content-marina">
+										Marina Complex Da Nang được mệnh danh là dự án khởi đầu cho xu
+										hướng <br> sống mới của giới thượng lưu với trải nghiệm
+										"thuần khiết" ven sông Hàn <br> <a
+											style="color: blue; font-size: smaller;" href="">Dân trí:
+											"Dự án Marina là một trong những dự án đáng sở hữu nhất 2020"</a>
+									</p>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"
+								style="position: absolute; top: 16%; right: 27%;">
+								<h1 class="marina">MARINA COMPLEX</h1>
+							</div>
+						</div>
 					</div>
-
-					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="margin-top: -52rem">
-						<div class="row">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<img src="Image/10 30356.png" alt="">
+					<div class="item">
+						<div class="row" style="margin-top: 2rem; position: relative;">
+							<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/duan.png}
+									class="blur-img" alt="" style="width: 80%;">
+								<div class="marina-complex">
+									<p class="content-marina">
+										Marina Complex Da Nang được mệnh danh là dự án khởi đầu cho xu
+										hướng <br> sống mới của giới thượng lưu với trải nghiệm
+										"thuần khiết" ven sông Hàn <br> <a
+											style="color: blue; font-size: smaller;" href="">Dân trí:
+											"Dự án Marina là một trong những dự án đáng sở hữu nhất 2020"</a>
+									</p>
+								</div>
 							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-								<p style="text-align: center; font-size: large;">Chúng tôi hân hạnh nhận được sự đồng
-									hành và <br> tài trợ của</p>
+							<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"
+								style="position: absolute; top: 16%; right: 27%;">
+								<h1 class="marina">MARINA COMPLEX</h1>
 							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-								style="display: flex; justify-content: center;">
-								<div style="background-color: rgb(95, 97, 96); width: 20rem; height: 10rem;"
-									class="d-flex align-items-center">
-									<p>LOGO NHÀ TÀI TRỢ</p>
+						</div>
+					</div>
+				</div>
+				<!-- Left and right controls -->
+				<a class="left carousel-control" href="#myCarousel"
+					data-slide="prev"> <span
+					class="glyphicon glyphicon-chevron-left"></span> <span
+					class="sr-only">Previous</span>
+				</a> <a class="right carousel-control" href="#myCarousel"
+					data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right"></span> <span
+					class="sr-only">Next</span>
+				</a>
+			</div>
+			<div class="row"
+				style="margin-top: 1rem; background-color: rgb(248, 223, 83); padding-top: 1.95rem; margin-left: 0; margin-right: 0;">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"></div>
+						<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+							<img th:src=@{/views/Management/JSDemo/WebBDS/Image/035.png}
+								alt="" style="box-shadow: 4rem -2rem rgb(223, 200, 75)">
+						</div>
+						<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+							<h3 class="content-office">Văn phòng công ty đẹp với phối
+								màu độc đáo</h3>
+							<p class="content-main">Văn phòng tại Microsoft Việt Nam lấy
+								tông màu xanh lá làm chủ đạo. Bên cạnh đó không gian tại đây
+								được thiết kế linh hoạt với nhiều mảng màu đặc trưng khác nhau.
+								Phong cách bài trí được đồng độ với giao diện icon của Microsoft
+								gồm 4 màu đỏ, xanh lá, vàng, xanh da trời</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+							<img th:src=@{/views/Management/JSDemo/WebBDS/Image/nestate.png}
+								alt="">
+							<div class="row">
+								<div class="col-lg-5 col-md-4 col-sm-12 col-xs-12"></div>
+								<div class="col-lg-7 col-md-8 col-sm-12 col-xs-12">
+									<p class="content-main">Văn phòng tại Microsoft Việt Nam
+										lấy tông màu xanh lá làm chủ đạo. Bên cạnh đó không gian tại
+										đây được thiết kế linh hoạt với nhiều mảng màu đặc trưng khác
+										nhau. Phong cách bài trí được đồng độ với giao diện icon của
+										Microsoft gồm 4 màu đỏ, xanh lá, vàng, xanh da trời</p>
+									<h3 class="content-office" style="padding: 0;">Văn phòng
+										công ty đẹp với phối màu độc đáo</h3>
 								</div>
 							</div>
 						</div>
-
-					</div>
-
-					<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+						<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+							<img th:src=@{/views/Management/JSDemo/WebBDS/Image/035.png}
+								class="image-scale-small" alt=""
+								style="box-shadow: 4rem -2rem rgb(223, 200, 75)";>
+						</div>
 					</div>
 				</div>
+			</div>
+			<div class="row" style="margin-top: 1rem;"></div>
+			<div class="row real-time">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="background">
+						<img
+							th:src=@{/views/Management/JSDemo/WebBDS/Image/background.png}
+							style="width: 100%;" alt="">
+						<div class="profile">
+							<div class="row">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+									<img
+										th:src=@{/views/Management/JSDemo/WebBDS/Image/1c1d56fef4e27f335a3617b2af4442024.png}
+										style="width: 100%; height: 19.5rem" alt="">
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+									<div class="row">
+										<p class="realtime-content">
+											Chuyên viên Bất động sản Đức Thắng <br> 'Luôn luôn khiêm
+											tốn và làm thật tốt công việc của mình'
+										</p>
+										<p style="font-size: small;">
+											Chàng trai trẻ 8x Đức Thắng sinh ra ở miền quê nghèo thuộc <br>
+											huyện Yên Sơn, tỉnh Tuyên Quang và gia đình vẫn không mấy <br>
+											khá giả. Học xong cấp 3, Đức Thắng thi đậu vào trường...
+										</p>
+										<a href="" class="profile-ceo">PROFILE</a> |
+										<p class="realtime-content">GĐ Dự án Nestate</p>
+									</div>
+									<div class="row" style="margin-top: 1rem;">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+											<img
+												th:src=@{/views/Management/JSDemo/WebBDS/Image/1c1d56fef4e27f335a3617b2af4442025.png}
+												style="width: 100%; height: 10rem;" alt="">
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+											<img
+												th:src=@{/views/Management/JSDemo/WebBDS/Image/1c1d56fef4e27f335a3617b2af4442025.png}
+												style="width: 100%; height: 10rem;" alt="">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row"
+				style="background-color: rgb(255, 255, 255); margin-left: 0; margin-right: 0;">
+				<div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<img th:src=@{/views/Management/JSDemo/WebBDS/Image/anh.png} alt=""
+						style="width: 100%;">
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<img th:src=@{/views/Management/JSDemo/WebBDS/Image/anh.png} alt=""
+						style="width: 100%;">
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+					style="margin-top: 3rem; position: relative;">
+					<img th:src=@{/views/Management/JSDemo/WebBDS/Image/doitac.png}
+						alt="" style="width: 100%;">
+					<p class="taiTroText">
+						Chúng tôi hân hạnh nhận được sự đồng hành<br>& hợp tác của:
+					</p>
+				</div>
 
-
-
-				<!-- jquery-1.11.3.min js
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+					style="padding-left: 50%; margin-top: -14%;">
+					<div class="slider">
+						<div class="slides">
+							<div id="slide-1">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/1030356.png}
+									alt="">
+							</div>
+							<div id="slide-2">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/1030356.png}
+									alt="">
+							</div>
+							<div id="slide-3">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/1030356.png}
+									alt="">
+							</div>
+							<div id="slide-4">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/1030356.png}
+									alt="">
+							</div>
+							<div id="slide-5">
+								<img th:src=@{/views/Management/JSDemo/WebBDS/Image/1030356.png}
+									alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="footer">
+						<img
+							th:src=@{/views/Management/JSDemo/WebBDS/Image/Untitled-14.png}
+							alt="">
+						<div class="feedback">
+							<p style="font-weight: bold;">Quản trị bởi Phòng Marketing</p>
+							<a href="" class="profile-ceo" style="margin-right: 0.5rem;">LIÊN
+								HỆ</a> <a href="" class="profile-ceo">GÓP Ý</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin: 1% 0 2% 35%;">
+				<div class="col-lg-1 col-md-2 col-sm-12 col-xs-12"
+					style="padding-right: 0;">
+					<img
+						th:src=@{/views/Management/JSDemo/WebBDS/Image/NESTATE_LOGO.jpg}
+						alt="">
+				</div>
+				<div class="col-lg-11 col-md-2 col-sm-12 col-xs-12"
+					style="padding-left: 0; padding-top: 1%;">
+					<p>CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN NESTATE</p>
+				</div>
+			</div>
+			<!-- jquery-1.11.3.min js
 		============================================ -->
-				<script src="JS/vendor/jquery-1.11.3.min.js"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/JS/vendor/jquery-1.11.3.min.js}></script>
 
-				<!-- bootstrap js
+			<!-- bootstrap js
 		============================================ -->
-				<script src="JS/bootstrap.min.js"></script>
+			<script th:src=@{/views/Management/JSDemo/WebBDS/JS/bootstrap.min.js}></script>
 
-				<!-- Nivo slider js
+			<!-- Nivo slider js
 		============================================ -->
-				<script src="custom-slider/js/jquery.nivo.slider.js" type="text/javascript"></script>
-				<script src="custom-slider/home.js" type="text/javascript"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/custom-slider/js/jquery.nivo.slider.js}
+				type="text/javascript"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/custom-slider/home.js}
+				type="text/javascript"></script>
 
-				<!-- owl.carousel.min js
+			<!-- owl.carousel.min js
 		============================================ -->
-				<script src="JS/owl.carousel.min.js"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/JS/owl.carousel.min.js}></script>
 
-				<!-- jquery scrollUp js 
+			<!-- jquery scrollUp js 
 		============================================ -->
-				<script src="JS/jquery.scrollUp.min.js"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/JS/jquery.scrollUp.min.js}></script>
 
-				<!-- price-slider js
+			<!-- price-slider js
 		============================================ -->
-				<script src="JS/price-slider.js"></script>
+			<script th:src=@{/views/Management/JSDemo/WebBDS/JS/price-slider.js}></script>
 
-				<!-- elevateZoom js 
+			<!-- elevateZoom js 
 		============================================ -->
-				<script src="JS/jquery.elevateZoom-3.0.8.min.js"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/JS/jquery.elevateZoom-3.0.8.min.js}></script>
 
-				<!-- jquery.bxslider.min.js
+			<!-- jquery.bxslider.min.js
 		============================================ -->
-				<script src="JS/jquery.bxslider.min.js"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/JS/jquery.bxslider.min.js}></script>
 
-				<!-- mobile menu js
+			<!-- mobile menu js
 		============================================ -->
-				<script src="JS/jquery.meanmenu.js"></script>
+			<script
+				th:src=@{/views/Management/JSDemo/WebBDS/JS/jquery.meanmenu.js}></script>
 
-				<!-- wow js
+			<!-- wow js
 		============================================ -->
-				<script src="JS/wow.js"></script>
+			<script th:src=@{/views/Management/JSDemo/WebBDS/JS/wow.js}></script>
 
-				<!-- plugins js
+			<!-- plugins js
 		============================================ -->
-				<script src="JS/plugins.js"></script>
+			<script th:src=@{/views/Management/JSDemo/WebBDS/JS/plugins.js}></script>
 
-				<!-- main js
+			<!-- main js
 		============================================ -->
-				<script src="JS/main.js"></script>
+			<script th:src=@{/views/Management/JSDemo/WebBDS/JS/main.js}></script>
 
-				<!-- pollbar
+			<!-- pollbar
 		============================================ -->
-				<script src="JS/pollbar.js"></script>
+			<script th:src=@{/views/Management/JSDemo/WebBDS/JS/pollbar.js}></script>
 </body>
 
 </html>
