@@ -40,7 +40,7 @@ public class AddProdetailController {
 	@Autowired
 	private ImageProductDetailService imageProductDetailService;
 	
-	@PostMapping("/add")
+	@PostMapping("/addProdutDetail")
 	public String addProjectDetail(@ModelAttribute("projectDetail") ProductDetail productDetail) {
 		List<MultipartFile> listFile = productDetail.getListFile();
 		Set<ImageProductDetail> setImage = new LinkedHashSet<ImageProductDetail>();
@@ -57,7 +57,6 @@ public class AddProdetailController {
 				try {
 					FileCopyUtils.copy(file.getBytes(), new File(this.fileUpload + fileName));	
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				Cloudinary cloudinary = new Cloudinary(asMap);
@@ -79,7 +78,7 @@ public class AddProdetailController {
 			imageProductDetailService.save(imageProductDetail);
 		}
 		
-		return "redirect:/login";
+		return "redirect:/showListProductDetail";
 	}
 
 	public File convert(MultipartFile file) throws IOException {

@@ -86,6 +86,6 @@ public class AddNewsController {
 		}
 			
 		
-		return "redirect:/login";
+		return "redirect:/listNewsDetail";
 	}
 }

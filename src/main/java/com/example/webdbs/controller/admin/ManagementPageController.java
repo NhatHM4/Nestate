@@ -14,7 +14,7 @@ import com.example.webdbs.entity.ProductDetail;
 @SessionAttributes(types = Admin.class, names = "adminSession")
 public class ManagementPageController {
 	
-	@GetMapping("/management")
+	@GetMapping("/addProductDetail")
 	public String Management(@ModelAttribute("adminSession") Admin admin, Model model) {
 		System.out.println(admin);
 		if (admin !=null) {
@@ -31,5 +31,11 @@ public class ManagementPageController {
 	@ModelAttribute("adminSession")
 	public Admin getAdmin() {
 		return null;
+	}
+	
+	@GetMapping(value = {"/","/home"})
+	public String homePage() {
+		
+		return "Management/JSDemo/WebBDS/Home";
 	}
 }

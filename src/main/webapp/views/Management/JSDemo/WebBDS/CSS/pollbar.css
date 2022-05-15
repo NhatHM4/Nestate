@@ -6,7 +6,6 @@
     width: 100%;
    background-color: rgb(46, 46, 46);;
 }
-
 #note{
     width: 400px;
     background-color: #fff;
@@ -17,18 +16,15 @@
     justify-content: flex-start;
     align-items: center;
 }
-
 .row-bar{
     margin: 0;
-
     display: flex;
     width: 100%;
     height: 100px;
     align-items: center;
     justify-content: center;
-    margin-top: 12rem;
+    margin-top: 8rem;
 }
-
 .options{
     padding: 0px;
     margin: 0px;
@@ -36,23 +32,14 @@
     width: 100px;
     height: 40px;
     background-color: #444;
-    margin: 0px 10px;
+    /* margin: 0px 10px; */
     font-size:1em;
     color: #fff;
 }
-
-#option1{
-    background-color:   rgb(255, 194, 14);  
-}
-
-#option2{
-    background-color:  rgb(196, 196, 196);  
-}
-
 #Cont{
     position: relative;
     display: flex;
-    width: 300px;
+    width: 320px;
     height: 70px;
     margin: 0px 10px;
     background-color: #fff;
@@ -74,10 +61,7 @@
 .rotate{
     transform: rotate(90deg);
 }
-#bar1{
-    background-color:  rgb(255, 194, 14);
-    width: 250px;
-}
+
 #bar2{
     background-color: rgb(196, 196, 196);
     width: 250px;
