@@ -1,11 +1,17 @@
 package com.example.webdbs.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+
+
 
 import com.example.webdbs.entity.ProductDetail;
 
-@Service
+
 public interface ProductDetailService {
 
 	ProductDetail save(ProductDetail productDetail);
+
+	List<ProductDetail> getAll();
+
+	ProductDetail getOneByID(Long productID);
 }

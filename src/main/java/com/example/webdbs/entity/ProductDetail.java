@@ -74,6 +74,7 @@ public class ProductDetail extends BaseEntity{
 	private Set<ImageProductDetail> setImage;
 	
 	
+	
 	@Transient
 	private List<MultipartFile> listFile;
 	

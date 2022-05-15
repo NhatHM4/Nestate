@@ -31,7 +31,6 @@ public class LoginController {
 	@PostMapping("/login")
 	public String loginPost(@ModelAttribute("admin") Admin admin, Model model) {
 		 if (checkExistsAdmin(admin)!=null) {
-			 
 			 return "redirect:/management";
 		 }
 		model.addAttribute("message", "Sai tài khoản hoặc mật khẩu");
@@ -55,4 +54,5 @@ public class LoginController {
 		httpsession.invalidate();
 		return "redirect:/login";
 	}
+	
 }

@@ -1,5 +1,7 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{base.html}">
 
 <head>
     <meta charset="utf-8">
@@ -15,18 +17,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;700;900&display=swap"
         rel="stylesheet">
+	
 
-    <link rel="stylesheet" href="./css/custome.css">
+    <link rel="stylesheet" href=@{./views/Management/css/custome.css}>
+    <link th:href="@{./views/Management/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{./views/Management/css/bootstrap-icons.css}" rel="stylesheet">
+    
+        <link th:href="stylesheet" href="@{./views/Management/css/magnific-popup.css}">
+    
+        <link th:href="@{./views/Management/css/aos.css}" rel="stylesheet">
+   
+   		 <link th:href="@{./views/Management/css/templatemo-nomad-force.css}" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link href="css/aos.css" rel="stylesheet">
-    <link href="css/templatemo-nomad-force.css" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{./views/Management/css/Information.css}">
 
-    <link rel="stylesheet" href="css/Information.css">
-    <link rel="stylesheet" href="css/slideShow.css">
-    <link rel="stylesheet" href="css/popup.css">
+        <link rel="stylesheet" th:href="@{./views/Management/css/slideShow.css}">
+
+        <link rel="stylesheet" th:href="@{./views/Management/css/popup.css}">
     <!-- TemplateMo 567 Nomad Force
         https://templatemo.com/tm-567-nomad-force -->
 </head>
@@ -279,19 +286,17 @@
 
 
         <!-- section item detail -->
-        <section class="section-padding" id="design">
+        <section class="section-padding" id="design" th:each="item:${allProduct}">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="mb-5 text-center" data-aos="fade-up">Designing a villa is a mini adventure with an
-                        epic
-                        dimension.’</h2>
+                    <h2 class="mb-5 text-center" data-aos="fade-up" th:text = "${item.name}"></h2>
                 </div>
-
+<!-- 				-------------- image -------------- -->
                 <div class="col-lg-6 col-12">
                     <div class="portfolio-thumb mt-5 mt-lg-0 mb-5" data-aos="fade-up">
-                        <a href="https://static.powerhouse-company.com/wp-content/uploads/2019/10/31091833/Powerhouse-Company-Villa-1-09-1121x1400.jpg"
+                        <a th:href="@{${item.linkImage}}"
                             class="image-popup">
-                            <img src="https://static.powerhouse-company.com/wp-content/uploads/2019/10/31091833/Powerhouse-Company-Villa-1-09-1121x1400.jpg"
+                            <img th:src="@{${item.linkImage}}"
                                 class="img-fluid portfolio-image" alt="">
                         </a>
                     </div>
@@ -632,17 +637,27 @@
 
     <!-- JAVASCRIPT FILES -->
     <script src="js/jquery.min.js"></script>
+        <script src="@{./views/Management/js/jquery.min.js}"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="@{./views/Management/js/bootstrap.bundle.min.js}"></script>
     <script src="js/jquery.sticky.js"></script>
+   		 <script src="@{./views/Management/js/jquery.sticky.js}"></script>
     <script src="js/aos.js"></script>
+    	<script src="@{./views/Management/js/jquery.sticky.js}"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
+    	<script src="@{./views/Management/js/jquery.magnific-popup.min.js}"></script>
     <script src="js/magnific-popup-options.js"></script>
+     	<script src="@{./views/Management/js/magnific-popup-options.js}"></script>
     <script src="js/scrollspy.min.js"></script>
+    	<script src="@{./views/Management/js/scrollspy.min.js}"></script>
     <script src="js/custom.js"></script>
-
+		<script src="@{./views/Management/js/custom.js}"></script>
     <script src="js/information.js"></script>
+     	<script src="@{./views/Management/js/information.js}"></script>
     <script src="js/slideShow.js"></script>
+    	<script src="@{./views/Management/js/slideShow.js}"></script>
     <script src="js/popup.js"></script>
+    	 <script src="@{./views/Management/js/popup.js}"></script>
 
 </body>
 
