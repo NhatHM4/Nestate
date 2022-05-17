@@ -517,23 +517,22 @@
         
             <!-- Start Banner Section -->
             <!-- list-element1 -->
-            <div id="list-element" class="banner-section section-top-gap-100 section-fluid" th:each="itemImage:${item.setImage}">
+            <div id="list-element" class="banner-section section-top-gap-100 section-fluid" >
                 <div class="banner-wrapper">
-                    <div class="container-fluid">
+                    <div class="container-fluid"  th:each="itemImage:${item.setImage}">
                         <div class="row mb-n6">
+                    <img th:src="@{${itemImage.linkImage}}" alt="">  
 
                             <div class="col-lg-6 col-12 mb-6">
                                 <!-- Start Banner Single Item -->
                                 <a href="http://127.0.0.1:5501/detailProduct.html">
-                                    <div class="banner-single-item banner-style-1 banner-animation img-responsive"
-                                        data-aos="fade-up" data-aos-delay="0">
-
+                                    <div class="banner-single-item banner-style-1 banner-animation img-responsive">
                                         <div class="image">
-                                            <!-- <img th:src="@{${item.setImage.linkImage}}" alt=""> -->
-                                            <h2 th:text ="${itemImage.linkImage}"></h2>
+                                            <img th:src="@{${itemImage.linkImage}}" alt=""> 
+                                           <!--  <h2 th:text ="${itemImage.linkImage}"></h2> -->
                                         </div>
                                         <div class="content">
-                                            <h4 class="title" th:text = "${itemImage.name}"></h4>
+                                            <h4 class="title" th:text = "${item.name}"></h4>
                                             <h5 class="sub-title">We design your home</h5>
                                           
                                         </div>
